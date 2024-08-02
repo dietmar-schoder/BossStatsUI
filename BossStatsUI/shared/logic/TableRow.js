@@ -1,13 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TableRow = void 0;
-class TableRow {
-    constructor() {
-        this.children = [];
-        this.startTag = "<tr>";
-        this.content = "";
-        this.endTag = "</tr>";
-    }
+export class TableRow {
+    children = [];
+    startTag = "<tr>";
+    content = "";
+    endTag = "</tr>";
     add(element) {
         this.children.push(element);
     }
@@ -19,5 +14,4 @@ class TableRow {
         return html + this.endTag;
     }
 }
-exports.TableRow = TableRow;
 //# sourceMappingURL=TableRow.js.map
