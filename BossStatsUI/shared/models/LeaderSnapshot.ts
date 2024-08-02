@@ -1,4 +1,4 @@
-import { LeaderDataEntry } from "./LeaderDataEntry";
+import { LeaderDataEntry } from "./LeaderDataEntry.js";
 
 export interface LeaderSnapshot {
     id: string | undefined;

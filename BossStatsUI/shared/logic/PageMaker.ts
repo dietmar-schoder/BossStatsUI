@@ -1,4 +1,4 @@
-import { IViewElement } from "./IViewElement";
+import { IViewElement } from "./IViewElement.js";
 
 export class PageMaker {
     getHtml(element: IViewElement) {

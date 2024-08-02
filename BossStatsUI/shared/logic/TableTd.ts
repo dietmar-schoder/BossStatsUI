@@ -1,4 +1,4 @@
-import { IViewElement } from "./IViewElement";
+import { IViewElement } from "./IViewElement.js";
 
 export class TableData implements IViewElement {
     children: IViewElement[] = [];

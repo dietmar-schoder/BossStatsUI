@@ -1,7 +1,7 @@
-import { Table } from "./shared/logic/Table";
-import { TableRow } from "./shared/logic/TableRow";
-import { TableData } from "./shared/logic/TableTd";
-import { LeaderSnapshot } from "./shared/models/LeaderSnapshot";
+import { Table } from "./shared/logic/Table.js";
+import { TableRow } from "./shared/logic/TableRow.js";
+import { TableData } from "./shared/logic/TableTd.js";
+import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 
 function getOneToOnes(): Promise<LeaderSnapshot> {
     const headers: Headers = new Headers()

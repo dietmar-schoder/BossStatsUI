@@ -1,6 +1,6 @@
-import { Table } from "./shared/logic/Table";
-import { TableRow } from "./shared/logic/TableRow";
-import { TableData } from "./shared/logic/TableTd";
+import { Table } from "./shared/logic/Table.js";
+import { TableRow } from "./shared/logic/TableRow.js";
+import { TableData } from "./shared/logic/TableTd.js";
 function getOneToOnes() {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
