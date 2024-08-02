@@ -7,6 +7,9 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean"
   },
+  "engines": {
+    "node": "22.0.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
