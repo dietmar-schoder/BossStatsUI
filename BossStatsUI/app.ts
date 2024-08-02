@@ -1,24 +1,48 @@
-interface OneToOne {
-    id: string
-    daysSince2000: number
-    personId: string
-}
+import { Table } from "./shared/logic/Table";
+import { TableRow } from "./shared/logic/TableRow";
+import { TableData } from "./shared/logic/TableTd";
+import { LeaderSnapshot } from "./shared/models/LeaderSnapshot";
 
-function getOneToOnes(): Promise<OneToOne[]> {
+function getOneToOnes(): Promise<LeaderSnapshot> {
     const headers: Headers = new Headers()
     headers.set('Content-Type', 'application/json')
     headers.set('Accept', 'application/json')
-    const request: RequestInfo = new Request('https://www.fuehrr.com/api/companies/6884F73E-E237-4D80-A8B8-FB5FF9304F09/1to1s', {
+    const request: RequestInfo = new Request('https://fuehrrstats.azurewebsites.net/api/leadersnapshots/92d05a70-4e5c-4929-8c70-08dcb0d7dcba', {
         method: 'GET',
         headers: headers
     })
 
     return fetch(request)
         .then(res => res.json())
-        .then(res => { return res as OneToOne[]; })
+        .then(res => { return res as LeaderSnapshot; })
 }
 
 async function loadPage() {
-    var oneToOnes: OneToOne[] = await getOneToOnes();
-    document.getElementById("body")!.innerHTML = "<p>" + oneToOnes[0].id + "</p><p>" + oneToOnes[1].id + "</p>";
+    var leaderSnapshot: LeaderSnapshot = await getOneToOnes();
+    //var body: string = "<table>";
+    //leaderSnapshot.leaderDataEntries!.forEach(entry => {
+    //    body = body +
+    //        `<tr>` +
+    //            `<td>${entry.id}</td>` +
+    //            `<td>${entry.name}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.n}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.minimum}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.q1}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.median}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.q3}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.maximum}</td>` +
+    //            `<td>${entry.oneToOneQuartiles.iqr}</td>` +
+    //        `</tr>`;
+    //})
+    //body = body + "</table>";
+    //document.getElementById("body")!.innerHTML = body;
+
+    var table = new Table();
+    leaderSnapshot.leaderDataEntries!.forEach(entry => {
+        var row = new TableRow();
+        row.add(new TableData(entry.id))
+        row.add(new TableData(entry.name))
+    })
+
+    document.getElementById("body")!.innerHTML = table.html();
 }
