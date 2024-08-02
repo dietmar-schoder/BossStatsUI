@@ -3,7 +3,7 @@ import { TableRow } from "./shared/logic/TableRow.js";
 import { TableData } from "./shared/logic/TableTd.js";
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 
-function getOneToOnes(): Promise<LeaderSnapshot> {
+function getLeaderSnapshot(): Promise<LeaderSnapshot> {
     const headers: Headers = new Headers()
     headers.set('Content-Type', 'application/json')
     headers.set('Accept', 'application/json')
@@ -17,8 +17,8 @@ function getOneToOnes(): Promise<LeaderSnapshot> {
         .then(res => { return res as LeaderSnapshot; })
 }
 
-export async function onLoad() {
-    var leaderSnapshot: LeaderSnapshot = await getOneToOnes();
+async function onLoad() {
+    var leaderSnapshot: LeaderSnapshot = await getLeaderSnapshot();
     //var body: string = "<table>";
     //leaderSnapshot.leaderDataEntries!.forEach(entry => {
     //    body = body +
@@ -46,3 +46,7 @@ export async function onLoad() {
 
     document.getElementById("body")!.innerHTML = table.html();
 };
+
+document.addEventListener("DOMContentLoaded", async function (event) {
+    await onLoad();
+});
