@@ -40,8 +40,9 @@ async function onLoad() {
     var table = new Table();
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
         var row = new TableRow();
-        row.add(new TableData(entry.id))
-        row.add(new TableData(entry.name))
+        row.add(new TableData(entry.id));
+        row.add(new TableData(entry.name));
+        table.add(row);
     })
 
     document.getElementById("body")!.innerHTML = table.html();

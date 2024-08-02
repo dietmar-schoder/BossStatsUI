@@ -37,6 +37,7 @@ async function onLoad() {
         var row = new TableRow();
         row.add(new TableData(entry.id));
         row.add(new TableData(entry.name));
+        table.add(row);
     });
     document.getElementById("body").innerHTML = table.html();
 }
