@@ -1,6 +1,7 @@
+import { StackPanel } from "./shared/logic/StackPanel.js";
 import { Table } from "./shared/logic/Table.js";
+import { TableData } from "./shared/logic/TableData.js";
 import { TableRow } from "./shared/logic/TableRow.js";
-import { TableData } from "./shared/logic/TableTd.js";
 function getLeaderSnapshot() {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -16,6 +17,7 @@ function getLeaderSnapshot() {
 async function onLoad() {
     var leaderSnapshot = await getLeaderSnapshot();
     var table = new Table();
+    var stackPanel = new StackPanel(table);
     leaderSnapshot.leaderDataEntries.forEach(entry => {
         var row = new TableRow();
         row.add(new TableData(entry.id));
@@ -29,7 +31,7 @@ async function onLoad() {
         row.add(new TableData(entry.oneToOneQuartiles.iqr.toString()));
         table.add(row);
     });
-    document.getElementById("body").innerHTML = table.html();
+    document.getElementById("body").innerHTML = stackPanel.html();
 }
 ;
 document.addEventListener("DOMContentLoaded", async function (event) {

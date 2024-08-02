@@ -1,12 +1,10 @@
 import { IViewElement } from "./IViewElement.js";
+import { ViewElement } from "./ViewElement.js";
 
-export class Table implements IViewElement {
-    children: IViewElement[] = [];
-    startTag: string = "<table>";
-    content: string = "";
-    endTag: string = "</table>";
-
-    add(element: IViewElement) {
-        this.children.push(element);
+export class Table extends ViewElement implements IViewElement {
+    constructor() {
+        super();
+        this.startTag = "<table>";
+        this.endTag = "</table>";
     }
 }

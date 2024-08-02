@@ -1,17 +1,9 @@
-export class Table {
-    children = [];
-    startTag = "<table>";
-    content = "";
-    endTag = "</table>";
-    add(element) {
-        this.children.push(element);
-    }
-    html() {
-        var html = this.startTag;
-        this.children.forEach(entry => {
-            html = html + entry.html();
-        });
-        return html + this.endTag;
+import { ViewElement } from "./ViewElement.js";
+export class Table extends ViewElement {
+    constructor() {
+        super();
+        this.startTag = "<table>";
+        this.endTag = "</table>";
     }
 }
 //# sourceMappingURL=Table.js.map

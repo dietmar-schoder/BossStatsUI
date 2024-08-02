@@ -1,7 +1,7 @@
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { StackPanel } from "./shared/logic/StackPanel.js";
 import { Table } from "./shared/logic/Table.js";
-import { TableData } from "./shared/logic/TableTd.js";
+import { TableData } from "./shared/logic/TableData.js";
 import { TableRow } from "./shared/logic/TableRow.js";
 
 function getLeaderSnapshot(): Promise<LeaderSnapshot> {

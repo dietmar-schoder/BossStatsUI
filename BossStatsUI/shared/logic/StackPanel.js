@@ -1,6 +1,22 @@
-export class PageMaker {
-    getHtml(element) {
-        return element.startTag + element.content + element.endTag;
+export class StackPanel {
+    root;
+    constructor(element) {
+        this.root = element;
+    }
+    html() {
+        return this.htmlTree(this.root);
+    }
+    htmlTree(element) {
+        var html = element.startTag;
+        if (element.children.length > 0) {
+            element.children.forEach(entry => {
+                html = html + this.htmlTree(entry);
+            });
+        }
+        else {
+            html = html + element.content;
+        }
+        return html + element.endTag;
     }
 }
-//# sourceMappingURL=PageMaker.js.map
+//# sourceMappingURL=StackPanel.js.map

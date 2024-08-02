@@ -1,12 +1,10 @@
 import { IViewElement } from "./IViewElement.js";
+import { ViewElement } from "./ViewElement.js";
 
-export class TableRow implements IViewElement {
-    children: IViewElement[] = [];
-    startTag: string = "<tr>";
-    content: string = "";
-    endTag: string = "</tr>";
-
-    add(element: IViewElement) {
-        this.children.push(element);
+export class TableRow extends ViewElement implements IViewElement {
+    constructor() {
+        super();
+        this.startTag = "<tr>";
+        this.endTag = "</tr>";
     }
 }
