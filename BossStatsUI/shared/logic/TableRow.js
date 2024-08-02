@@ -1,4 +1,7 @@
-export class TableRow {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TableRow = void 0;
+class TableRow {
     constructor() {
         this.children = [];
         this.startTag = "<tr>";
@@ -16,4 +19,5 @@ export class TableRow {
         return html + this.endTag;
     }
 }
+exports.TableRow = TableRow;
 //# sourceMappingURL=TableRow.js.map

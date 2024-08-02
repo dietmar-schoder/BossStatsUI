@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,9 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Table } from "./shared/logic/Table";
-import { TableRow } from "./shared/logic/TableRow";
-import { TableData } from "./shared/logic/TableTd";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Table_1 = require("./shared/logic/Table");
+const TableRow_1 = require("./shared/logic/TableRow");
+const TableTd_1 = require("./shared/logic/TableTd");
 function getOneToOnes() {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -42,11 +44,11 @@ window.onload = function () {
         //})
         //body = body + "</table>";
         //document.getElementById("body")!.innerHTML = body;
-        var table = new Table();
+        var table = new Table_1.Table();
         leaderSnapshot.leaderDataEntries.forEach(entry => {
-            var row = new TableRow();
-            row.add(new TableData(entry.id));
-            row.add(new TableData(entry.name));
+            var row = new TableRow_1.TableRow();
+            row.add(new TableTd_1.TableData(entry.id));
+            row.add(new TableTd_1.TableData(entry.name));
         });
         document.getElementById("body").innerHTML = table.html();
     });
