@@ -22,7 +22,7 @@ function getOneToOnes() {
         .then(res => res.json())
         .then(res => { return res; });
 }
-export function loadPage() {
+window.onload = function () {
     return __awaiter(this, void 0, void 0, function* () {
         var leaderSnapshot = yield getOneToOnes();
         //var body: string = "<table>";
@@ -50,5 +50,5 @@ export function loadPage() {
         });
         document.getElementById("body").innerHTML = table.html();
     });
-}
+};
 //# sourceMappingURL=app.js.map
