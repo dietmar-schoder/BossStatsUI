@@ -9,12 +9,4 @@ export class Table implements IViewElement {
     add(element: IViewElement) {
         this.children.push(element);
     }
-
-    html() {
-        var html = this.startTag;
-        this.children!.forEach(entry => {
-            html = html + entry.html();
-        });
-        return html + this.endTag;
-    }
 }

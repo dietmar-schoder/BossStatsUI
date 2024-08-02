@@ -5,5 +5,4 @@ export interface IViewElement {
     endTag: string;
 
     add(element: IViewElement): void;
-    html(): string;
 }
