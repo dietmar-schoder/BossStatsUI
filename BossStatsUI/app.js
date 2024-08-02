@@ -13,7 +13,7 @@ function getOneToOnes() {
         .then(res => res.json())
         .then(res => { return res; });
 }
-async function onLoad() {
+export async function onLoad() {
     var leaderSnapshot = await getOneToOnes();
     //var body: string = "<table>";
     //leaderSnapshot.leaderDataEntries!.forEach(entry => {
