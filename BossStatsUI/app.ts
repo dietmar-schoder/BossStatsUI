@@ -19,29 +19,19 @@ function getLeaderSnapshot(): Promise<LeaderSnapshot> {
 
 async function onLoad() {
     var leaderSnapshot: LeaderSnapshot = await getLeaderSnapshot();
-    //var body: string = "<table>";
-    //leaderSnapshot.leaderDataEntries!.forEach(entry => {
-    //    body = body +
-    //        `<tr>` +
-    //            `<td>${entry.id}</td>` +
-    //            `<td>${entry.name}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.n}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.minimum}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.q1}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.median}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.q3}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.maximum}</td>` +
-    //            `<td>${entry.oneToOneQuartiles.iqr}</td>` +
-    //        `</tr>`;
-    //})
-    //body = body + "</table>";
-    //document.getElementById("body")!.innerHTML = body;
-
     var table = new Table();
+
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
         var row = new TableRow();
         row.add(new TableData(entry.id));
         row.add(new TableData(entry.name));
+        row.add(new TableData(entry.oneToOneQuartiles.n.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.minimum.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.q1.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.median.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.q3.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.maximum.toString()));
+        row.add(new TableData(entry.oneToOneQuartiles.iqr.toString()));
         table.add(row);
     })
 
