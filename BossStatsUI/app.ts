@@ -17,7 +17,7 @@ function getOneToOnes(): Promise<LeaderSnapshot> {
         .then(res => { return res as LeaderSnapshot; })
 }
 
-window.onload = async function () {
+async function onLoad() {
     var leaderSnapshot: LeaderSnapshot = await getOneToOnes();
     //var body: string = "<table>";
     //leaderSnapshot.leaderDataEntries!.forEach(entry => {

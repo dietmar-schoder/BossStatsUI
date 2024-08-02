@@ -13,7 +13,7 @@ function getOneToOnes() {
         .then(res => res.json())
         .then(res => { return res; });
 }
-window.onload = async function () {
+async function onLoad() {
     var leaderSnapshot = await getOneToOnes();
     //var body: string = "<table>";
     //leaderSnapshot.leaderDataEntries!.forEach(entry => {
@@ -39,5 +39,6 @@ window.onload = async function () {
         row.add(new TableData(entry.name));
     });
     document.getElementById("body").innerHTML = table.html();
-};
+}
+;
 //# sourceMappingURL=app.js.map
