@@ -1,8 +1,11 @@
 //concurrently "http-server -a localhost -p 8080"
 
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
-import { StackPanel } from "./shared/logic/StackPanel.js";
-import { Table, TableRow, TableData } from "./shared/logic/Table.js";
+import { HtmlComponent } from "./shared/logic/HtmlComponent.js";
+import { Table, TableRow, TableData } from "./shared/logic/HtmlTable.js";
+import { SvgTable, SvgText } from "./shared/logic/SvgTable.js";
+
+var selectedId: string;
 
 function getLeaderSnapshot(): Promise<LeaderSnapshot> {
     const headers: Headers = new Headers()
@@ -20,8 +23,10 @@ function getLeaderSnapshot(): Promise<LeaderSnapshot> {
 
 async function onLoad() {
     var leaderSnapshot: LeaderSnapshot = await getLeaderSnapshot();
+
+    // ---
     var table = new Table();
-    var stackPanel = new StackPanel(table);
+    var stackPanel = new HtmlComponent(table);
 
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
         var row = new TableRow();
@@ -37,11 +42,27 @@ async function onLoad() {
         table.add(row);
     })
 
-    table.add(new TableRow().add(new TableData("1.0.2")));
+    table.add(new TableRow().add(new TableData("1.0.4")));
 
-    document.getElementById("body")!.innerHTML = stackPanel.html();
+    // ---
+    var svgTable = new SvgTable();
+    leaderSnapshot.leaderDataEntries!.forEach(entry => {
+        svgTable.add(new SvgText(entry.id));
+    })
+    svgTable.add(new SvgText(selectedId));
+
+    // ---
+    document.getElementById("body")!.innerHTML = stackPanel.html() + svgTable.html2();
 };
 
 document.addEventListener("DOMContentLoaded", async function (event) {
     await onLoad();
+});
+
+document.addEventListener("click", function (event: Event) {
+    if (event == null || event.target == null) { return; }
+    let element = event.target as Element;
+    if (element == null) { return; }
+    selectedId = element.id;
+    onLoad();
 });
