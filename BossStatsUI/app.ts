@@ -1,3 +1,5 @@
+//concurrently "http-server -a localhost -p 8080"
+
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { StackPanel } from "./shared/logic/StackPanel.js";
 import { Table, TableRow, TableData } from "./shared/logic/Table.js";
