@@ -1,9 +1,9 @@
 //concurrently "http-server -a localhost -p 8080"
 
-import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { SvgPanel, SvgButton, SvgText } from "./shared/logic/SvgPanel.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
 import { Server } from "./shared/logic/Server.js";
+import { ViewElement } from "./shared/logic/ViewElement.js";
 
 var viewHelper = new ViewHelper()
 var server = new Server()
@@ -32,9 +32,14 @@ async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string) {
     var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
     var svgPanel = new SvgPanel();
 
-    svgPanel.add(new SvgButton("BACK", 912, "getLeaderSnapshots", ""))
+    var navBar = new ViewElement();
+    navBar.isHorizontal = true;
+    navBar.add(new SvgButton("BACK", 80, "getLeaderSnapshots", ""))
+    navBar.add(new SvgText(leaderSnapshot.daysSince2000!.toString(), 500))
+    svgPanel.add(navBar);
+
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
-        svgPanel.add(new SvgText(entry.name, 200));
+        svgPanel.add(new SvgText(entry.name, 912));
     })
 
     document.body.innerHTML = viewHelper.svgHtml(svgPanel);
