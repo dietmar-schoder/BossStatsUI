@@ -1,8 +1,8 @@
 import { ViewElement } from "./ViewElement.js";
 
-var grey: string = "rgb(230,232,232)";
-var lineHeight: number = 24;
-var margin2: number = 6;
+var grey = "rgb(230,232,232)";
+var lineHeight = 24;
+var margin2 = 6;
 
 export class SvgPanel extends ViewElement {
     constructor() {

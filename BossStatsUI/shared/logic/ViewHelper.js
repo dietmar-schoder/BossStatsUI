@@ -1,8 +1,11 @@
 var margin = 12;
 export class ViewHelper {
-    html(root) {
+    svgHtml(root) {
         this.calculateSizes(root);
         this.calculateXYs(root);
+        return this.html(root);
+    }
+    html(root) {
         return this.htmlTree(root);
     }
     calculateSizes(element) {
@@ -51,7 +54,7 @@ export class ViewHelper {
         var html = element.getStartTag() + element.getContent();
         if (element.children.length > 0) {
             element.children.forEach(child => {
-                html = html + this.htmlTree(child);
+                html += this.htmlTree(child);
             });
         }
         return html + element.getEndTag();

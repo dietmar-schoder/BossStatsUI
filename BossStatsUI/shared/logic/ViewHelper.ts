@@ -1,11 +1,16 @@
 import { ViewElement } from "./ViewElement.js";
 
-var margin: number = 12;
+var margin = 12;
 
 export class ViewHelper {
-    public html(root: ViewElement): string {
+
+    public svgHtml(root: ViewElement): string {
         this.calculateSizes(root);
         this.calculateXYs(root);
+        return this.html(root);
+    }
+
+    public html(root: ViewElement): string {
         return this.htmlTree(root);
     }
 
@@ -53,8 +58,8 @@ export class ViewHelper {
         var html = element.getStartTag() + element.getContent();
 
         if (element.children.length > 0) {
-            element.children!.forEach(child => {
-                html = html + this.htmlTree(child);
+            element.children.forEach(child => {
+                html += this.htmlTree(child);
             });
         }
 

@@ -1,15 +1,15 @@
 export class ViewElement {
     public children: ViewElement[] = [];
-    public startTag: string = "";
-    public content: string = "";
-    public endTag: string = "";
-    public x: number = 0;
-    public y: number = 0;
-    public width: number = 0;
-    public height: number = 0;
-    public isHorizontal: boolean = false;
-    public action: string = "";
-    public id: string = "";
+    public startTag = "";
+    public content = "";
+    public endTag = "";
+    public x = 0;
+    public y = 0;
+    public width = 0;
+    public height = 0;
+    public isHorizontal = false;
+    public action = "";
+    public id = "";
 
     add(element: ViewElement): ViewElement {
         this.children.push(element);

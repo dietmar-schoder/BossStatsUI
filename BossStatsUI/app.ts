@@ -3,8 +3,10 @@
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { SvgPanel, SvgButton, SvgText } from "./shared/logic/SvgPanel.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
+import { Server } from "./shared/logic/Server.js";
 
 var viewHelper = new ViewHelper()
+var server = new Server()
 
 // Page Selector
 
@@ -16,18 +18,18 @@ function selectPage(action: string, actionId: string) {
 // Pages
 
 async function getLeaderSnapshotsPage() {
-    var leaderSnapshots: LeaderSnapshot[] = await getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
+    var leaderSnapshots = await server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
     var svgPanel = new SvgPanel();
 
     leaderSnapshots.forEach(entry => {
         svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, "getLeaderSnapshotOneToOnes", entry.id ?? ""));
     })
 
-    document.body.innerHTML = viewHelper.html(svgPanel);
+    document.body.innerHTML = viewHelper.svgHtml(svgPanel);
 };
 
 async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string) {
-    var leaderSnapshot: LeaderSnapshot = await getLeaderSnapshotOneToOnes(leaderSnapshotId);
+    var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
     var svgPanel = new SvgPanel();
 
     svgPanel.add(new SvgButton("BACK", 912, "getLeaderSnapshots", ""))
@@ -35,34 +37,10 @@ async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string) {
         svgPanel.add(new SvgText(entry.name, 200));
     })
 
-    document.body.innerHTML = viewHelper.html(svgPanel);
+    document.body.innerHTML = viewHelper.svgHtml(svgPanel);
 };
 
-// Server Calls
-
-function getLeaderSnapshots(companyId: string): Promise<LeaderSnapshot[]> {
-    return getFromServer<LeaderSnapshot[]>(`https://fuehrrstats.azurewebsites.net/api/companies/${companyId}/leadersnapshots`);
-}
-
-function getLeaderSnapshotOneToOnes(leaderSnapshotId: string): Promise<LeaderSnapshot> {
-    return getFromServer<LeaderSnapshot>(`https://fuehrrstats.azurewebsites.net/api/leadersnapshots/${leaderSnapshotId}`);
-}
-
-// Basics
-
-function getFromServer<T>(url: string): Promise<T> {
-    const headers: Headers = new Headers()
-    headers.set('Content-Type', 'application/json')
-    headers.set('Accept', 'application/json')
-    const request: RequestInfo = new Request(url, {
-        method: 'GET',
-        headers: headers
-    })
-
-    return fetch(request)
-        .then(res => res.json())
-        .then(res => { return res as T; })
-}
+// EventListeners
 
 document.addEventListener("DOMContentLoaded", async function (event) {
     await getLeaderSnapshotsPage();
