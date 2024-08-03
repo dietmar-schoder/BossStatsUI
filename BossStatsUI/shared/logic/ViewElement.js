@@ -7,4 +7,3 @@ export class ViewElement {
         this.children.push(element);
     }
 }
-//# sourceMappingURL=ViewElement.js.map

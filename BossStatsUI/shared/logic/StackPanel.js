@@ -19,4 +19,3 @@ export class StackPanel {
         return html + element.endTag;
     }
 }
-//# sourceMappingURL=StackPanel.js.map

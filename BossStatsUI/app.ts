@@ -1,8 +1,6 @@
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { StackPanel } from "./shared/logic/StackPanel.js";
-import { Table } from "./shared/logic/Table.js";
-import { TableData } from "./shared/logic/TableData.js";
-import { TableRow } from "./shared/logic/TableRow.js";
+import { Table, TableRow, TableData } from "./shared/logic/Table.js";
 
 function getLeaderSnapshot(): Promise<LeaderSnapshot> {
     const headers: Headers = new Headers()

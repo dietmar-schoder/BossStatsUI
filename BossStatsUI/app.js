@@ -1,7 +1,5 @@
 import { StackPanel } from "./shared/logic/StackPanel.js";
-import { Table } from "./shared/logic/Table.js";
-import { TableData } from "./shared/logic/TableData.js";
-import { TableRow } from "./shared/logic/TableRow.js";
+import { Table, TableRow, TableData } from "./shared/logic/Table.js";
 function getLeaderSnapshot() {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -37,4 +35,3 @@ async function onLoad() {
 document.addEventListener("DOMContentLoaded", async function (event) {
     await onLoad();
 });
-//# sourceMappingURL=app.js.map

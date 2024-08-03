@@ -6,4 +6,18 @@ export class Table extends ViewElement {
         this.endTag = "</table>";
     }
 }
-//# sourceMappingURL=Table.js.map
+export class TableRow extends ViewElement {
+    constructor() {
+        super();
+        this.startTag = "<tr>";
+        this.endTag = "</tr>";
+    }
+}
+export class TableData extends ViewElement {
+    constructor(content) {
+        super();
+        this.startTag = "<td>";
+        this.content = content;
+        this.endTag = "</td>";
+    }
+}
