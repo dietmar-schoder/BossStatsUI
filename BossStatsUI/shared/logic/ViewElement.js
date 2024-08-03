@@ -7,6 +7,8 @@ export class ViewElement {
     y = 0;
     width = 0;
     height = 24;
+    action = "";
+    id = "";
     add(element) {
         this.children.push(element);
         return element;

@@ -7,6 +7,8 @@ export class ViewElement {
     public y: number = 0;
     public width: number = 0;
     public height: number = 24;
+    public action: string = "";
+    public id: string = "";
 
     add(element: ViewElement): ViewElement {
         this.children.push(element);

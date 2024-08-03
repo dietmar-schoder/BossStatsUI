@@ -3,7 +3,7 @@
 import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 import { HtmlComponent } from "./shared/logic/HtmlComponent.js";
 import { Table, TableRow, TableData } from "./shared/logic/HtmlTable.js";
-import { SvgTable, SvgText } from "./shared/logic/SvgTable.js";
+import { SvgTable, SvgButton, SvgText } from "./shared/logic/SvgTable.js";
 
 var selectedId: string;
 
@@ -46,6 +46,8 @@ async function onLoad() {
 
     // ---
     var svgTable = new SvgTable();
+    svgTable.add(new SvgButton("TEST", 300, "testaction", "guidguid"))
+    svgTable.add(new SvgButton("TEST2", 300, "testaction2", "guidguid2"))
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
         svgTable.add(new SvgText(entry.id));
     })

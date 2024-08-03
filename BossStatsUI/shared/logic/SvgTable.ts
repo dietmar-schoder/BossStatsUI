@@ -1,9 +1,13 @@
 import { ViewElement } from "./ViewElement.js";
 
+var margin: number = 12;
+var margin2: number = margin / 2;
+var grey: string = "rgb(230,232,232)";
+
 export class SvgTable extends ViewElement {
     constructor() {
         super();
-        this.width = 600;
+        this.width = 1000;
         this.startTag = "";
         this.endTag = "</svg>";
     }
@@ -14,7 +18,7 @@ export class SvgTable extends ViewElement {
         let h: number = 0;
         this.children.forEach(entry => {
             entry.y = h;
-            h = h + entry.height;
+            h = h + entry.height + margin;
         });
         this.height = h;
 
@@ -26,6 +30,23 @@ export class SvgTable extends ViewElement {
     }
 }
 
+export class SvgButton extends ViewElement {
+    constructor(caption: string, width: number, action: string, id: string) {
+        super();
+        this.startTag = "";
+        this.content = caption;
+        this.endTag = "";
+        this.width = width;
+        this.action = action;
+        this.id = id;
+    }
+
+    public getStartTag = () =>
+        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"${grey}\" stroke-width=\"0\" />
+        <text alignment-baseline=\"middle\" x=\"${this.x + margin2}\" y=\"${this.y + this.height / 2 + 1}\">${this.content}</text>
+        <rect id=\"${this.action}|${this.id}\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+}
+
 export class SvgText extends ViewElement {
     constructor(content: string) {
         super();
@@ -34,5 +55,5 @@ export class SvgText extends ViewElement {
         this.endTag = "</text>";
     }
 
-    public getStartTag = () => `<text id=\"details|${this.content}\" alignment-baseline=\"middle\" x=\"${this.x.toString()}\" y=\"${this.y + this.height / 2 + 1}\">`;
+    public getStartTag = () => `<text alignment-baseline=\"middle\" x=\"${this.x.toString()}\" y=\"${this.y + this.height / 2 + 1}\">`;
 }
