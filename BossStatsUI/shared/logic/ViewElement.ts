@@ -1,12 +1,10 @@
-import { IViewElement } from "./IViewElement.js";
-
-export class ViewElement implements IViewElement {
-    children: IViewElement[] = [];
+export class ViewElement {
+    children: ViewElement[] = [];
     startTag: string = "";
     content: string = "";
     endTag: string = "";
 
-    add(element: IViewElement) {
+    add(element: ViewElement) {
         this.children.push(element);
     }
 }

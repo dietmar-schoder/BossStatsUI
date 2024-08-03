@@ -1,7 +1,6 @@
-import { IViewElement } from "./IViewElement.js";
 import { ViewElement } from "./ViewElement.js";
 
-export class Table extends ViewElement implements IViewElement {
+export class Table extends ViewElement {
     constructor() {
         super();
         this.startTag = "<table>";
@@ -9,7 +8,7 @@ export class Table extends ViewElement implements IViewElement {
     }
 }
 
-export class TableRow extends ViewElement implements IViewElement {
+export class TableRow extends ViewElement {
     constructor() {
         super();
         this.startTag = "<tr>";
@@ -17,7 +16,7 @@ export class TableRow extends ViewElement implements IViewElement {
     }
 }
 
-export class TableData extends ViewElement implements IViewElement {
+export class TableData extends ViewElement {
     constructor(content: string) {
         super();
         this.startTag = "<td>";

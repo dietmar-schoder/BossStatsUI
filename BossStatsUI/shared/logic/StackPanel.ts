@@ -1,8 +1,8 @@
-import { IViewElement } from "./IViewElement.js";
+import { ViewElement } from "./ViewElement.js";
 
 export class StackPanel {
-    root: IViewElement;
-    constructor(element: IViewElement) {
+    root: ViewElement;
+    constructor(element: ViewElement) {
         this.root = element;
     }
 
@@ -10,7 +10,7 @@ export class StackPanel {
         return this.htmlTree(this.root);
     }
 
-    htmlTree(element: IViewElement) {
+    htmlTree(element: ViewElement) {
         var html = element.startTag;
         if (element.children.length > 0) {
             element.children!.forEach(entry => {
