@@ -10,7 +10,14 @@ export class ViewElement {
     isHorizontal = false;
     action = "";
     id = "";
+    constructor(isHorizontal = false) {
+        this.isHorizontal = isHorizontal;
+    }
     add(element) {
+        this.children.push(element);
+        return this;
+    }
+    sub(element) {
         this.children.push(element);
         return element;
     }

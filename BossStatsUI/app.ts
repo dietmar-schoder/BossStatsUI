@@ -32,11 +32,9 @@ async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string) {
     var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
     var svgPanel = new SvgPanel();
 
-    var navBar = new ViewElement();
-    navBar.isHorizontal = true;
-    navBar.add(new SvgButton("BACK", 80, "getLeaderSnapshots", ""))
-    navBar.add(new SvgText(leaderSnapshot.daysSince2000!.toString(), 500))
-    svgPanel.add(navBar);
+    svgPanel.sub(new ViewElement(true))
+        .add(new SvgButton("BACK", 80, "getLeaderSnapshots", ""))
+        .add(new SvgText(leaderSnapshot.daysSince2000!.toString(), 500));
 
     leaderSnapshot.leaderDataEntries!.forEach(entry => {
         svgPanel.add(new SvgText(entry.name, 912));

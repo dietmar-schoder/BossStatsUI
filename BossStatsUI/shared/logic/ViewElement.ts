@@ -11,7 +11,16 @@ export class ViewElement {
     public action = "";
     public id = "";
 
+    constructor(isHorizontal = false) {
+        this.isHorizontal = isHorizontal;
+    }
+
     add(element: ViewElement): ViewElement {
+        this.children.push(element);
+        return this;
+    }
+
+    sub(element: ViewElement): ViewElement {
         this.children.push(element);
         return element;
     }
