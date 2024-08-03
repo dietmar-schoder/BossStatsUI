@@ -5,5 +5,6 @@ export class ViewElement {
     endTag = "";
     add(element) {
         this.children.push(element);
+        return element;
     }
 }

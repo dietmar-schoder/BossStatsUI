@@ -37,6 +37,8 @@ async function onLoad() {
         table.add(row);
     })
 
+    table.add(new TableRow().add(new TableData("1.0.2")));
+
     document.getElementById("body")!.innerHTML = stackPanel.html();
 };
 

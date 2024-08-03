@@ -2,6 +2,10 @@
   "name": "bossstatsui",
   "version": "1.0.0",
   "main": "app.js",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },  
   "engines": {
     "node": ">=20.11.x"
   },

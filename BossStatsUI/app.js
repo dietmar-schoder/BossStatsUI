@@ -1,3 +1,4 @@
+//concurrently "http-server -a localhost -p 8080"
 import { StackPanel } from "./shared/logic/StackPanel.js";
 import { Table, TableRow, TableData } from "./shared/logic/Table.js";
 function getLeaderSnapshot() {
@@ -29,6 +30,7 @@ async function onLoad() {
         row.add(new TableData(entry.oneToOneQuartiles.iqr.toString()));
         table.add(row);
     });
+    table.add(new TableRow().add(new TableData("1.0.2")));
     document.getElementById("body").innerHTML = stackPanel.html();
 }
 ;

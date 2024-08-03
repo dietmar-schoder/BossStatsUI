@@ -4,7 +4,8 @@ export class ViewElement {
     content: string = "";
     endTag: string = "";
 
-    add(element: ViewElement) {
+    add(element: ViewElement): ViewElement {
         this.children.push(element);
+        return element;
     }
 }
