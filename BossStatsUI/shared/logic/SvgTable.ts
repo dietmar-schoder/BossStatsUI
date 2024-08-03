@@ -14,7 +14,7 @@ export class SvgTable extends ViewElement {
 
     public getStartTag = () => `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
 
-    public html2(): string {
+    public html(): string {
         let h: number = 0;
         this.children.forEach(entry => {
             entry.y = h;

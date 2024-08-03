@@ -10,7 +10,7 @@ export class SvgTable extends ViewElement {
         this.endTag = "</svg>";
     }
     getStartTag = () => `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
-    html2() {
+    html() {
         let h = 0;
         this.children.forEach(entry => {
             entry.y = h;
