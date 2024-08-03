@@ -1,7 +1,7 @@
 //concurrently "http-server -a localhost -p 8080"
-//import { HtmlComponent } from "./shared/logic/HtmlComponent.js";
-//import { Table, TableRow, TableData } from "./shared/logic/HtmlTable.js";
-import { SvgTable, SvgButton, SvgText } from "./shared/logic/SvgTable.js";
+import { SvgPanel, SvgButton, SvgText } from "./shared/logic/SvgPanel.js";
+import { ViewHelper } from "./shared/logic/ViewHelper.js";
+var viewHelper = new ViewHelper();
 // Page Selector
 function selectPage(action, actionId) {
     if (action == "getLeaderSnapshots") {
@@ -14,39 +14,21 @@ function selectPage(action, actionId) {
 // Pages
 async function getLeaderSnapshotsPage() {
     var leaderSnapshots = await getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
-    // ---
-    //var table = new Table();
-    //var stackPanel = new HtmlComponent(table);
-    //leaderSnapshot.leaderDataEntries!.forEach(entry => {
-    //    var row = new TableRow();
-    //    row.add(new TableData(entry.id));
-    //    row.add(new TableData(entry.name));
-    //    row.add(new TableData(entry.oneToOneQuartiles.n.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.minimum.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.q1.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.median.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.q3.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.maximum.toString()));
-    //    row.add(new TableData(entry.oneToOneQuartiles.iqr.toString()));
-    //    table.add(row);
-    //})
-    //table.add(new TableRow().add(new TableData("1.0.4")));
-    //document.getElementById("body")!.innerHTML = stackPanel.html();
-    var svgTable = new SvgTable();
+    var svgPanel = new SvgPanel();
     leaderSnapshots.forEach(entry => {
-        svgTable.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 300, "getLeaderSnapshotOneToOnes", entry.id ?? ""));
+        svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, "getLeaderSnapshotOneToOnes", entry.id ?? ""));
     });
-    document.getElementById("body").innerHTML = svgTable.html();
+    document.body.innerHTML = viewHelper.html(svgPanel);
 }
 ;
 async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId) {
     var leaderSnapshot = await getLeaderSnapshotOneToOnes(leaderSnapshotId);
-    var svgTable = new SvgTable();
-    svgTable.add(new SvgButton("BACK", 300, "getLeaderSnapshots", ""));
+    var svgPanel = new SvgPanel();
+    svgPanel.add(new SvgButton("BACK", 912, "getLeaderSnapshots", ""));
     leaderSnapshot.leaderDataEntries.forEach(entry => {
-        svgTable.add(new SvgText(entry.name));
+        svgPanel.add(new SvgText(entry.name, 200));
     });
-    document.getElementById("body").innerHTML = svgTable.html();
+    document.body.innerHTML = viewHelper.html(svgPanel);
 }
 ;
 // Server Calls

@@ -6,7 +6,8 @@ export class ViewElement {
     public x: number = 0;
     public y: number = 0;
     public width: number = 0;
-    public height: number = 24;
+    public height: number = 0;
+    public isHorizontal: boolean = false;
     public action: string = "";
     public id: string = "";
 
@@ -16,6 +17,8 @@ export class ViewElement {
     }
 
     public getStartTag = () => this.startTag;
+
+    public getContent = () => this.content;
 
     public getEndTag = () => this.endTag;
 }

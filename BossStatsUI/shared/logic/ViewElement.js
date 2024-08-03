@@ -6,7 +6,8 @@ export class ViewElement {
     x = 0;
     y = 0;
     width = 0;
-    height = 24;
+    height = 0;
+    isHorizontal = false;
     action = "";
     id = "";
     add(element) {
@@ -14,5 +15,6 @@ export class ViewElement {
         return element;
     }
     getStartTag = () => this.startTag;
+    getContent = () => this.content;
     getEndTag = () => this.endTag;
 }
