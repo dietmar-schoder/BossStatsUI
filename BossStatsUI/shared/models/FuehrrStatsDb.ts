@@ -9,6 +9,7 @@ export interface LeaderDataEntry {
     id: string;
     personId: string;
     name: string;
+    level: number;
     oneToOneQuartiles: OneToOneQuartiles;
 }
 export interface OneToOneQuartiles {
