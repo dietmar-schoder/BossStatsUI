@@ -2,44 +2,15 @@
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
 import { Page, Pages } from "./shared/logic/Pages.js";
 import { Server } from "./shared/logic/Server.js";
-var viewHelper = new ViewHelper();
-var pages = new Pages(viewHelper);
-var server = new Server();
-var leaderSnapshots;
-var _leaderSnapshotId;
-// Page Selector
-function selectPage(action, actionId) {
-    if (action == Page.LeaderSnapshots) {
-        getLeaderSnapshotsPage();
-    }
-    if (action == Page.LeaderSnapshotOneToOnes) {
-        getLeaderSnapshotOneToOnesPage(actionId);
-    }
-    if (action == Page.LeaderEvolution) {
-        getLeaderEvolutionPage(actionId);
-    }
-}
-// Pages
-async function getLeaderSnapshotsPage() {
-    document.body.innerHTML = pages.LeaderSnapshots(leaderSnapshots);
-}
-;
-async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId) {
-    _leaderSnapshotId = leaderSnapshotId;
-    var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
-    document.body.innerHTML = pages.LeaderSnapshotOneToOnes(leaderSnapshot);
-}
-;
-async function getLeaderEvolutionPage(personId) {
-    document.body.innerHTML = pages.LeaderEvolution(_leaderSnapshotId, personId);
-}
-;
-// EventListeners
+import { LoadPage } from "./shared/logic/LoadPage.js";
+var _server = new Server();
+var _viewHelper = new ViewHelper();
+var _pages = new Pages(_viewHelper);
+var _loadPage = new LoadPage(_server, _pages);
 document.addEventListener("DOMContentLoaded", async function () {
-    leaderSnapshots = await server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
-    await getLeaderSnapshotsPage();
+    document.body.innerHTML = await _loadPage.getHtml(Page.LeaderSnapshots, "");
 });
-document.addEventListener("click", function (event) {
+document.addEventListener("click", async function (event) {
     if (event == null || event.target == null) {
         return;
     }
@@ -48,5 +19,5 @@ document.addEventListener("click", function (event) {
         return;
     }
     var actionWithId = element.id.split("|");
-    selectPage(Number(actionWithId[0]), actionWithId[1]);
+    document.body.innerHTML = await _loadPage.getHtml(Number(actionWithId[0]), actionWithId[1]);
 });
