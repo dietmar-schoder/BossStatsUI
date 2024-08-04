@@ -1,10 +1,11 @@
 //concurrently "http-server -a localhost -p 8080"
 
-import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
+import { Page, Pages } from "./shared/logic/Pages.js";
 import { Server } from "./shared/logic/Server.js";
-import { SvgElement, SvgPanel, SvgButton, SvgText } from "./shared/logic/SvgElements.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
+import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
 
+var pages = new Pages();
 var server = new Server();
 var viewHelper = new ViewHelper();
 
@@ -12,12 +13,6 @@ var leaderSnapshots: LeaderSnapshot[];
 var _leaderSnapshotId: string;
 
 // Page Selector
-
-enum Page {
-    LeaderSnapshots,
-    LeaderSnapshotOneToOnes,
-    LeaderEvolution
-}
 
 function selectPage(action: number, actionId: string) {
     if (action == Page.LeaderSnapshots) { getLeaderSnapshotsPage(); }
@@ -29,46 +24,17 @@ function selectPage(action: number, actionId: string) {
 
 async function getLeaderSnapshotsPage() {
     //var leaderSnapshots = await server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
-    var svgPanel = new SvgPanel();
-
-    leaderSnapshots.forEach(entry => {
-        svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
-    })
-
-    document.body.innerHTML = viewHelper.svgHtml(svgPanel);
+    document.body.innerHTML = pages.LeaderSnapshots(viewHelper, leaderSnapshots);
 };
 
 async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string) {
     _leaderSnapshotId = leaderSnapshotId;
     var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
-    var svgPanel = new SvgPanel();
-
-    svgPanel.sub(new SvgElement(true))
-        .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
-        .add(new SvgText(leaderSnapshot.daysSince2000!.toString(), 812));
-
-    leaderSnapshot.leaderDataEntries!.forEach(entry => {
-        svgPanel.sub(new SvgElement(true))
-            .add(new SvgButton(entry.name, 276, Page.LeaderEvolution, entry.id))
-            .add(new SvgText(entry.oneToOneQuartiles.n.toString(), 76))
-            .add(new SvgText(entry.oneToOneQuartiles.minimum.toString(), 76))
-            .add(new SvgText(entry.oneToOneQuartiles.q1.toString(), 76))
-            .add(new SvgText(entry.oneToOneQuartiles.median.toString(), 76))
-            .add(new SvgText(entry.oneToOneQuartiles.q3.toString(), 76))
-            .add(new SvgText(entry.oneToOneQuartiles.maximum.toString(), 112));
-    })
-
-    document.body.innerHTML = viewHelper.svgHtml(svgPanel);
+    document.body.innerHTML = pages.LeaderSnapshotOneToOnes(viewHelper, leaderSnapshot);
 };
 
-async function getLeaderEvolutionPage(leaderId: string) {
-    var svgPanel = new SvgPanel();
-
-    svgPanel.sub(new SvgElement(true))
-        .add(new SvgButton("BACK", 76, Page.LeaderSnapshotOneToOnes, _leaderSnapshotId))
-        .add(new SvgText(leaderId, 812));
-
-    document.body.innerHTML = viewHelper.svgHtml(svgPanel);
+async function getLeaderEvolutionPage(personId: string) {
+    document.body.innerHTML = pages.LeaderEvolution(viewHelper, _leaderSnapshotId, personId);
 };
 
 // EventListeners
