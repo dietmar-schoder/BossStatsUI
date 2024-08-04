@@ -1,4 +1,4 @@
-import { LeaderSnapshot } from "../models/LeaderSnapshot.js";
+import { LeaderSnapshot } from "../models/FuehrrStatsDb.js";
 import { SvgButton, SvgElement, SvgPanel, SvgText } from "./SvgElements.js";
 import { ViewHelper } from "./ViewHelper.js";
 

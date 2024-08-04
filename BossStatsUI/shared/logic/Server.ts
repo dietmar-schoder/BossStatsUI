@@ -1,4 +1,4 @@
-import { LeaderSnapshot } from "../models/LeaderSnapshot.js";
+import { LeaderSnapshot } from "../models/FuehrrStatsDb";
 
 export class Server {
 

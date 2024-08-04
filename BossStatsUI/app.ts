@@ -3,7 +3,7 @@
 import { Page, Pages } from "./shared/logic/Pages.js";
 import { Server } from "./shared/logic/Server.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
-import { LeaderSnapshot } from "./shared/models/LeaderSnapshot.js";
+import { LeaderSnapshot } from "./shared/models/FuehrrStatsDb.js";
 
 var pages = new Pages();
 var server = new Server();
