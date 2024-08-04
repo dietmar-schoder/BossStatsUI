@@ -1,10 +1,42 @@
-import { ViewElement } from "./ViewElement.js";
-
 var grey = "rgb(230,232,232)";
 var lineHeight = 24;
 var margin2 = 6;
 
-export class SvgPanel extends ViewElement {
+export class SvgElement {
+    public children: SvgElement[] = [];
+    public startTag = "";
+    public content = "";
+    public endTag = "";
+    public x = 0;
+    public y = 0;
+    public width = 0;
+    public height = 0;
+    public isHorizontal = false;
+    public action = 0;
+    public id = "";
+
+    constructor(isHorizontal = false) {
+        this.isHorizontal = isHorizontal;
+    }
+
+    add(element: SvgElement): SvgElement {
+        this.children.push(element);
+        return this;
+    }
+
+    sub(element: SvgElement): SvgElement {
+        this.children.push(element);
+        return element;
+    }
+
+    public getStartTag = () => this.startTag;
+
+    public getContent = () => this.content;
+
+    public getEndTag = () => this.endTag;
+}
+
+export class SvgPanel extends SvgElement {
     constructor() {
         super();
     }
@@ -16,8 +48,8 @@ export class SvgPanel extends ViewElement {
         "</svg>";
 }
 
-export class SvgButton extends ViewElement {
-    constructor(caption: string, width: number, action: string, id: string) {
+export class SvgButton extends SvgElement {
+    constructor(caption: string, width: number, action: number, id: string) {
         super();
         this.content = caption;
         this.width = width;
@@ -34,7 +66,7 @@ export class SvgButton extends ViewElement {
         `</text><rect id=\"${this.action}|${this.id}\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
 }
 
-export class SvgText extends ViewElement {
+export class SvgText extends SvgElement {
     constructor(content: string, width: number) {
         super();
         this.content = content;

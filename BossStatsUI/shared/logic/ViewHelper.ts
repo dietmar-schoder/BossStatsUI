@@ -1,20 +1,20 @@
-import { ViewElement } from "./ViewElement.js";
+import { SvgElement } from "./SvgElements.js";
 
 var margin = 12;
 
 export class ViewHelper {
 
-    public svgHtml(root: ViewElement): string {
+    public svgHtml(root: SvgElement): string {
         this.calculateSizes(root);
         this.calculateXYs(root);
         return this.html(root);
     }
 
-    public html(root: ViewElement): string {
+    public html(root: SvgElement): string {
         return this.htmlTree(root);
     }
 
-    private calculateSizes(element: ViewElement) {
+    private calculateSizes(element: SvgElement) {
         if (element.children.length == 0 || element.width > 0 || element.height > 0) { return; }
         if (element.isHorizontal) {
             element.children.forEach(child => {
@@ -32,7 +32,7 @@ export class ViewHelper {
         }
     }
 
-    private calculateXYs(element: ViewElement) {
+    private calculateXYs(element: SvgElement) {
         if (element.children.length == 0) { return; }
         if (element.isHorizontal) {
             var xIncrement = element.x;
@@ -54,7 +54,7 @@ export class ViewHelper {
         }
     }
 
-    private htmlTree(element: ViewElement) {
+    private htmlTree(element: SvgElement) {
         var html = element.getStartTag() + element.getContent();
 
         if (element.children.length > 0) {

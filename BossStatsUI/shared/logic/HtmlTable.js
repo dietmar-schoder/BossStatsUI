@@ -1,4 +1,4 @@
-import { ViewElement } from "./ViewElement.js";
+import { SvgElement } from "./SvgElements.js";
 // ---
 //var table = new Table();
 //var stackPanel = new HtmlComponent(table);
@@ -17,21 +17,21 @@ import { ViewElement } from "./ViewElement.js";
 //})
 //table.add(new TableRow().add(new TableData("1.0.4")));
 //document.getElementById("body")!.innerHTML = stackPanel.html();
-export class Table extends ViewElement {
+export class Table extends SvgElement {
     constructor() {
         super();
         this.startTag = "<table>";
         this.endTag = "</table>";
     }
 }
-export class TableRow extends ViewElement {
+export class TableRow extends SvgElement {
     constructor() {
         super();
         this.startTag = "<tr>";
         this.endTag = "</tr>";
     }
 }
-export class TableData extends ViewElement {
+export class TableData extends SvgElement {
     constructor(content) {
         super();
         this.startTag = "<td>";
