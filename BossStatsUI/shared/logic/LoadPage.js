@@ -20,7 +20,7 @@ export class LoadPage {
         }
         return "page not found";
     }
-    // Pages
+    // Get data and pages
     async getLeaderSnapshotsPage() {
         if (_leaderSnapshots == null) {
             _leaderSnapshots = await this._server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");

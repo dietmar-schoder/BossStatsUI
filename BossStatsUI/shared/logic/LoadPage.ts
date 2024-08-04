@@ -1,15 +1,15 @@
 import { LeaderSnapshot } from "../models/FuehrrStatsDb.js";
-import { Server } from "./Server.js";
+import { FuehrrStatsServer } from "./FuehrrStatsServer.js";
 import { Page, Pages } from "./Pages.js";
 
 var _leaderSnapshots: LeaderSnapshot[];
 var _leaderSnapshotId: string;
 
 export class LoadPage {
-    private _server: Server;
+    private _server: FuehrrStatsServer;
     private _pages: Pages;
 
-    constructor(server: Server, pages: Pages) {
+    constructor(server: FuehrrStatsServer, pages: Pages) {
         this._pages = pages;
         this._server = server;
     }
@@ -21,7 +21,7 @@ export class LoadPage {
         return "page not found";
     }
 
-    // Pages
+    // Get data and pages
 
     private async getLeaderSnapshotsPage(): Promise<string> {
         if (_leaderSnapshots == null) {

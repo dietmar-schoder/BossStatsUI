@@ -1,6 +1,7 @@
+import { DateHelper } from "./DateHelper.js";
+import { ViewHelper } from "./ViewHelper.js";
 import { LeaderSnapshot } from "../models/FuehrrStatsDb.js";
 import { SvgButton, SvgElement, SvgPanel, SvgText } from "./SvgElements.js";
-import { ViewHelper } from "./ViewHelper.js";
 
 export enum Page {
     LeaderSnapshots,
@@ -9,16 +10,20 @@ export enum Page {
 }
 
 export class Pages {
+    private _dateHelper: DateHelper;
     private _viewHelper: ViewHelper;
 
-    constructor(viewHelper: ViewHelper) {
+    constructor(dateHelper: DateHelper, viewHelper: ViewHelper) {
+        this._dateHelper = dateHelper;
         this._viewHelper = viewHelper;
     }
+
+    // Create Pages/SVG/HTML
 
     public LeaderSnapshots(leaderSnapshots: LeaderSnapshot[]): string {
         var svgPanel = new SvgPanel();
         leaderSnapshots.forEach(entry => {
-            svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
+            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });
         return this._viewHelper.svgHtml(svgPanel)
     }
@@ -27,7 +32,7 @@ export class Pages {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
-            .add(new SvgText(leaderSnapshot.daysSince2000!.toString(), 812));
+            .add(new SvgText(this._dateHelper.toDate(leaderSnapshot.date), 812));
         leaderSnapshot.leaderDataEntries!.forEach(entry => {
             svgPanel.sub(new SvgElement(true))
                 .add(new SvgButton(entry.name, 276, Page.LeaderEvolution, entry.personId))

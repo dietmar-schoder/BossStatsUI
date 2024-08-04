@@ -1,6 +1,7 @@
 export interface LeaderSnapshot {
     id: string;
     daysSince2000: number;
+    date: Date;
     leaderDataEntries: Array<LeaderDataEntry>;
 }
 

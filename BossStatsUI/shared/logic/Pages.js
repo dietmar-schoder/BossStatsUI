@@ -6,14 +6,17 @@ export var Page;
     Page[Page["LeaderEvolution"] = 2] = "LeaderEvolution";
 })(Page || (Page = {}));
 export class Pages {
+    _dateHelper;
     _viewHelper;
-    constructor(viewHelper) {
+    constructor(dateHelper, viewHelper) {
+        this._dateHelper = dateHelper;
         this._viewHelper = viewHelper;
     }
+    // Create Pages/SVG/HTML
     LeaderSnapshots(leaderSnapshots) {
         var svgPanel = new SvgPanel();
         leaderSnapshots.forEach(entry => {
-            svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
+            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });
         return this._viewHelper.svgHtml(svgPanel);
     }
@@ -21,7 +24,7 @@ export class Pages {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
-            .add(new SvgText(leaderSnapshot.daysSince2000.toString(), 812));
+            .add(new SvgText(this._dateHelper.toDate(leaderSnapshot.date), 812));
         leaderSnapshot.leaderDataEntries.forEach(entry => {
             svgPanel.sub(new SvgElement(true))
                 .add(new SvgButton(entry.name, 276, Page.LeaderEvolution, entry.personId))
