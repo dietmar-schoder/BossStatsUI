@@ -1,10 +1,10 @@
 //concurrently "http-server -a localhost -p 8080"
+import { ViewHelper } from "./shared/logic/ViewHelper.js";
 import { Page, Pages } from "./shared/logic/Pages.js";
 import { Server } from "./shared/logic/Server.js";
-import { ViewHelper } from "./shared/logic/ViewHelper.js";
-var pages = new Pages();
-var server = new Server();
 var viewHelper = new ViewHelper();
+var pages = new Pages(viewHelper);
+var server = new Server();
 var leaderSnapshots;
 var _leaderSnapshotId;
 // Page Selector
@@ -21,18 +21,17 @@ function selectPage(action, actionId) {
 }
 // Pages
 async function getLeaderSnapshotsPage() {
-    //var leaderSnapshots = await server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
-    document.body.innerHTML = pages.LeaderSnapshots(viewHelper, leaderSnapshots);
+    document.body.innerHTML = pages.LeaderSnapshots(leaderSnapshots);
 }
 ;
 async function getLeaderSnapshotOneToOnesPage(leaderSnapshotId) {
     _leaderSnapshotId = leaderSnapshotId;
     var leaderSnapshot = await server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
-    document.body.innerHTML = pages.LeaderSnapshotOneToOnes(viewHelper, leaderSnapshot);
+    document.body.innerHTML = pages.LeaderSnapshotOneToOnes(leaderSnapshot);
 }
 ;
 async function getLeaderEvolutionPage(personId) {
-    document.body.innerHTML = pages.LeaderEvolution(viewHelper, _leaderSnapshotId, personId);
+    document.body.innerHTML = pages.LeaderEvolution(_leaderSnapshotId, personId);
 }
 ;
 // EventListeners

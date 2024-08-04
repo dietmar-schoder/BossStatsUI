@@ -6,14 +6,18 @@ export var Page;
     Page[Page["LeaderEvolution"] = 2] = "LeaderEvolution";
 })(Page || (Page = {}));
 export class Pages {
-    LeaderSnapshots(viewHelper, leaderSnapshots) {
+    _viewHelper;
+    constructor(viewHelper) {
+        this._viewHelper = viewHelper;
+    }
+    LeaderSnapshots(leaderSnapshots) {
         var svgPanel = new SvgPanel();
         leaderSnapshots.forEach(entry => {
             svgPanel.add(new SvgButton(entry.daysSince2000?.toString() ?? "", 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });
-        return viewHelper.svgHtml(svgPanel);
+        return this._viewHelper.svgHtml(svgPanel);
     }
-    LeaderSnapshotOneToOnes(viewHelper, leaderSnapshot) {
+    LeaderSnapshotOneToOnes(leaderSnapshot) {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
@@ -28,13 +32,13 @@ export class Pages {
                 .add(new SvgText(entry.oneToOneQuartiles.q3.toString(), 76))
                 .add(new SvgText(entry.oneToOneQuartiles.maximum.toString(), 112));
         });
-        return viewHelper.svgHtml(svgPanel);
+        return this._viewHelper.svgHtml(svgPanel);
     }
-    LeaderEvolution(viewHelper, leaderSnapshotId, leaderId) {
+    LeaderEvolution(leaderSnapshotId, leaderId) {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshotOneToOnes, leaderSnapshotId))
             .add(new SvgText(leaderId, 812));
-        return viewHelper.svgHtml(svgPanel);
+        return this._viewHelper.svgHtml(svgPanel);
     }
 }
