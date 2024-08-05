@@ -15,7 +15,7 @@ export class LoadPage {
     }
 
     public async getHtml(action: number, id: string): Promise<string> {
-        if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(); }
+        if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(id); }
         if (action == Page.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(id); }
         if (action == Page.LeaderEvolution) { return await this.getLeaderEvolutionPage(id); }
         return "page not found";
@@ -23,9 +23,9 @@ export class LoadPage {
 
     // Get data and pages
 
-    private async getLeaderSnapshotsPage(): Promise<string> {
+    private async getLeaderSnapshotsPage(companyId: string): Promise<string> {
         if (_leaderSnapshots == null) {
-            _leaderSnapshots = await this._server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
+            _leaderSnapshots = await this._server.getLeaderSnapshots(companyId);
         }
         return this._pages.LeaderSnapshots(_leaderSnapshots);
     };

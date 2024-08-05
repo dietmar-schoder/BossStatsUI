@@ -10,7 +10,7 @@ export class LoadPage {
     }
     async getHtml(action, id) {
         if (action == Page.LeaderSnapshots) {
-            return await this.getLeaderSnapshotsPage();
+            return await this.getLeaderSnapshotsPage(id);
         }
         if (action == Page.LeaderSnapshotOneToOnes) {
             return await this.getLeaderSnapshotOneToOnesPage(id);
@@ -21,9 +21,9 @@ export class LoadPage {
         return "page not found";
     }
     // Get data and pages
-    async getLeaderSnapshotsPage() {
+    async getLeaderSnapshotsPage(companyId) {
         if (_leaderSnapshots == null) {
-            _leaderSnapshots = await this._server.getLeaderSnapshots("6884F73E-E237-4D80-A8B8-FB5FF9304F09");
+            _leaderSnapshots = await this._server.getLeaderSnapshots(companyId);
         }
         return this._pages.LeaderSnapshots(_leaderSnapshots);
     }

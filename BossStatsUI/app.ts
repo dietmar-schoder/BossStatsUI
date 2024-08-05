@@ -1,4 +1,5 @@
 //concurrently "http-server -a localhost -p 8080"
+//?id=6884F73E-E237-4D80-A8B8-FB5FF9304F09
 
 import { DateHelper } from "./shared/logic/DateHelper.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
@@ -12,8 +13,10 @@ var _viewHelper = new ViewHelper();
 var _pages = new Pages(_dateHelper, _viewHelper);
 var _loadPage = new LoadPage(_server, _pages);
 
+const id = new URLSearchParams(window.location.search).get('id') ?? "";
+
 document.addEventListener("DOMContentLoaded", async function () {
-    document.body.innerHTML = await _loadPage.getHtml(Page.LeaderSnapshots, "");
+    document.body.innerHTML = await _loadPage.getHtml(Page.LeaderSnapshots, id);
 });
 
 document.addEventListener("click", async function (event: Event) {
