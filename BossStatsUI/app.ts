@@ -1,5 +1,4 @@
 //concurrently "http-server -a localhost -p 8080"
-//?id=6884F73E-E237-4D80-A8B8-FB5FF9304F09
 
 import { DateHelper } from "./shared/logic/DateHelper.js";
 import { ViewHelper } from "./shared/logic/ViewHelper.js";
