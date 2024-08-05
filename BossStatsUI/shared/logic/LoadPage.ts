@@ -14,6 +14,8 @@ export class LoadPage {
         this._server = server;
     }
 
+    // "Action -> page" catalogue
+
     public async getHtml(action: number, id: string): Promise<string> {
         if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(id); }
         if (action == Page.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(id); }
@@ -21,7 +23,7 @@ export class LoadPage {
         return "page not found";
     }
 
-    // Get data and pages
+    // Get data and page
 
     private async getLeaderSnapshotsPage(companyId: string): Promise<string> {
         if (_leaderSnapshots == null) {
