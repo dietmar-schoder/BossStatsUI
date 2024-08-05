@@ -10,6 +10,13 @@ export class FuehrrStatsServer {
         });
         return leaderSnapshots;
     }
+    async getLeaderDataEntries(personId) {
+        let leaderDataEntries = await this.getFromServer(`https://fuehrrstats.azurewebsites.net/api/leaders/${personId}/leaderdataentries`);
+        leaderDataEntries.forEach(entry => {
+            entry.date = this._dateHelper.daysToDate(entry.daysSince2000);
+        });
+        return leaderDataEntries;
+    }
     async getLeaderSnapshotOneToOnes(leaderSnapshotId) {
         let leaderSnapshot = await this.getFromServer(`https://fuehrrstats.azurewebsites.net/api/leadersnapshots/${leaderSnapshotId}`);
         leaderSnapshot.date = this._dateHelper.daysToDate(leaderSnapshot.daysSince2000);

@@ -1,5 +1,5 @@
 import { DateHelper } from "./DateHelper";
-import { LeaderSnapshot } from "../models/FuehrrStatsDb";
+import { LeaderDataEntry, LeaderSnapshot } from "../models/FuehrrStats";
 
 export class FuehrrStatsServer {
     private _dateHelper: DateHelper;
@@ -14,6 +14,14 @@ export class FuehrrStatsServer {
             entry.date = this._dateHelper.daysToDate(entry.daysSince2000);
         })
         return leaderSnapshots;
+    }
+
+    public async getLeaderDataEntries(personId: string): Promise<LeaderDataEntry[]> {
+        let leaderDataEntries = await this.getFromServer<LeaderDataEntry[]>(`https://fuehrrstats.azurewebsites.net/api/leaders/${personId}/leaderdataentries`);
+        leaderDataEntries.forEach(entry => {
+            entry.date = this._dateHelper.daysToDate(entry.daysSince2000);
+        })
+        return leaderDataEntries;
     }
 
     public async getLeaderSnapshotOneToOnes(leaderSnapshotId: string): Promise<LeaderSnapshot> {

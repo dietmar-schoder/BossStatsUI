@@ -1,4 +1,4 @@
-import { LeaderSnapshot } from "../models/FuehrrStatsDb.js";
+import { LeaderSnapshot } from "../models/FuehrrStats.js";
 import { FuehrrStatsServer } from "./FuehrrStatsServer.js";
 import { Page, Pages } from "./Pages.js";
 
@@ -37,6 +37,7 @@ export class LoadPage {
     };
 
     private async getLeaderEvolutionPage(personId: string): Promise<string> {
-        return this._pages.LeaderEvolution(_leaderSnapshotId, personId);
+        var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
+        return this._pages.LeaderEvolution(_leaderSnapshotId, leaderDataEntries);
     };
 }

@@ -7,6 +7,8 @@ export interface LeaderSnapshot {
 
 export interface LeaderDataEntry {
     id: string;
+    daysSince2000: number;
+    date: Date;
     personId: string;
     name: string;
     level: number;

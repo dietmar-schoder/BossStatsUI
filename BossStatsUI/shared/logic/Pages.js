@@ -42,11 +42,22 @@ export class Pages {
         });
         return this._viewHelper.svgHtml(svgPanel);
     }
-    LeaderEvolution(leaderSnapshotId, leaderId) {
+    LeaderEvolution(leaderSnapshotId, leaderDataEntries) {
+        var leaderName = leaderDataEntries[0].name;
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshotOneToOnes, leaderSnapshotId))
-            .add(new SvgText(leaderId, 812));
+            .add(new SvgText(leaderName, 812));
+        leaderDataEntries.forEach(entry => {
+            svgPanel.sub(new SvgElement(true))
+                .add(new SvgText(this._dateHelper.toDate(entry.date), 176))
+                .add(new SvgText(entry.oneToOneQuartiles.n.toString(), 76))
+                .add(new SvgText(entry.oneToOneQuartiles.minimum.toString(), 76))
+                .add(new SvgText(entry.oneToOneQuartiles.q1.toString(), 76))
+                .add(new SvgText(entry.oneToOneQuartiles.median.toString(), 76))
+                .add(new SvgText(entry.oneToOneQuartiles.q3.toString(), 76))
+                .add(new SvgText(entry.oneToOneQuartiles.maximum.toString(), 212));
+        });
         return this._viewHelper.svgHtml(svgPanel);
     }
 }

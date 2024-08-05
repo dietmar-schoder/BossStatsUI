@@ -35,7 +35,8 @@ export class LoadPage {
     }
     ;
     async getLeaderEvolutionPage(personId) {
-        return this._pages.LeaderEvolution(_leaderSnapshotId, personId);
+        var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
+        return this._pages.LeaderEvolution(_leaderSnapshotId, leaderDataEntries);
     }
     ;
 }
