@@ -14,6 +14,8 @@ export class ViewHelper {
         return this.htmlTree(root);
     }
 
+    public getMargin = () => margin;
+
     private calculateSizes(element: SvgElement) {
         if (element.children.length == 0 || element.width > 0 || element.height > 0) { return; }
         if (element.isHorizontal) {

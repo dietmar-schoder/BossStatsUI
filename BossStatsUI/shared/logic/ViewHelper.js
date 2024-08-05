@@ -8,6 +8,7 @@ export class ViewHelper {
     html(root) {
         return this.htmlTree(root);
     }
+    getMargin = () => margin;
     calculateSizes(element) {
         if (element.children.length == 0 || element.width > 0 || element.height > 0) {
             return;
