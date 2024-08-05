@@ -26,9 +26,14 @@ export class Pages {
             .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
             .add(new SvgText(this._dateHelper.toDate(leaderSnapshot.date), 812));
         leaderSnapshot.leaderDataEntries.forEach(entry => {
-            let indent = Array(entry.level + 1).join('-');
-            svgPanel.sub(new SvgElement(true))
-                .add(new SvgButton(indent + entry.name, 276, Page.LeaderEvolution, entry.personId))
+            let indent = entry.level * 12 - 12;
+            let effectiveIndent = entry.level * 12;
+            let row = svgPanel.sub(new SvgElement(true));
+            if (entry.level > 0) {
+                row.add(new SvgText("", indent));
+            }
+            row
+                .add(new SvgButton(entry.name, 276 - effectiveIndent, Page.LeaderEvolution, entry.personId))
                 .add(new SvgText(entry.oneToOneQuartiles.n.toString(), 76))
                 .add(new SvgText(entry.oneToOneQuartiles.minimum.toString(), 76))
                 .add(new SvgText(entry.oneToOneQuartiles.q1.toString(), 76))
