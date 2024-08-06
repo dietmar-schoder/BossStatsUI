@@ -1,4 +1,5 @@
 var grey = "rgb(230,232,232)";
+var q = "rgb(155,96,155)";
 var lineHeight = 24;
 var margin2 = 6;
 export class SvgElement {
@@ -57,4 +58,25 @@ export class SvgText extends SvgElement {
     }
     getStartTag = () => `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">`;
     getEndTag = () => "</text>";
+}
+export class SvgQuartile extends SvgElement {
+    _quartiles;
+    constructor(quartiles, width) {
+        super();
+        this.width = width;
+        this.height = lineHeight;
+        this._quartiles = quartiles;
+    }
+    getStartTag = () => {
+        let factor = 612 / 4;
+        let min = this._quartiles.minimum * factor;
+        let q1 = this._quartiles.q1 * factor;
+        let med = this._quartiles.median * factor;
+        let q3 = this._quartiles.q3 * factor;
+        let max = this._quartiles.maximum * factor;
+        return `<rect x=\"${this.x + min}\" y=\"${this.y}\" width=\"${q1 - min - 1}\" height=\"${this.height}\" fill=\"${q}\" stroke-width=\"0\" />
+            <rect x=\"${this.x + q1}\" y=\"${this.y}\" width=\"${med - q1 - 1}\" height=\"${this.height}\" fill=\"${q}\" stroke-width=\"0\" />
+            <rect x=\"${this.x + med + 1}\" y=\"${this.y}\" width=\"${q3 - med - 2}\" height=\"${this.height}\" fill=\"${q}\" stroke-width=\"0\" />
+            <rect x=\"${this.x + q3}\" y=\"${this.y}\" width=\"${max - q3 - 1}\" height=\"${this.height}\" fill=\"${q}\" stroke-width=\"0\" />`;
+    };
 }

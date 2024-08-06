@@ -16,10 +16,10 @@ export interface LeaderDataEntry {
 }
 export interface OneToOneQuartiles {
     n: number;
-    minimum: string;
-    q1: string;
-    median: string;
-    q3: string;
-    maximum: string;
-    iqr: string;
+    minimum: number;
+    q1: number;
+    median: number;
+    q3: number;
+    maximum: number;
+    iqr: number;
 }

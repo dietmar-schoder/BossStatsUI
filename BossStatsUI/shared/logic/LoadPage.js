@@ -8,6 +8,7 @@ export class LoadPage {
         this._pages = pages;
         this._server = server;
     }
+    // "Action -> page" catalogue
     async getHtml(action, id) {
         if (action == Page.LeaderSnapshots) {
             return await this.getLeaderSnapshotsPage(id);
@@ -20,7 +21,7 @@ export class LoadPage {
         }
         return "page not found";
     }
-    // Get data and pages
+    // Get data and page
     async getLeaderSnapshotsPage(companyId) {
         if (_leaderSnapshots == null) {
             _leaderSnapshots = await this._server.getLeaderSnapshots(companyId);
