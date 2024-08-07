@@ -13,14 +13,15 @@ export class Pages {
         this._viewHelper = viewHelper;
     }
     // Create Pages/SVG/HTML
-    LeaderSnapshots(leaderSnapshots) {
+    LeaderSnapshots(width, leaderSnapshots) {
         var svgPanel = new SvgPanel();
+        svgPanel.add(new SvgText(width, 100));
         leaderSnapshots.forEach(entry => {
-            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
+            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), width, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });
         return this._viewHelper.svgHtml(svgPanel);
     }
-    LeaderSnapshotOneToOnes(leaderSnapshot) {
+    LeaderSnapshotOneToOnes(width, leaderSnapshot) {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 100 - 12, Page.LeaderSnapshots, ""))
@@ -42,7 +43,7 @@ export class Pages {
         });
         return this._viewHelper.svgHtml(svgPanel);
     }
-    LeaderEvolution(leaderSnapshotId, leaderDataEntries) {
+    LeaderEvolution(width, leaderSnapshotId, leaderDataEntries) {
         var leaderName = leaderDataEntries[0].name;
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))

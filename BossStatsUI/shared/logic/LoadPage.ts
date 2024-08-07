@@ -16,30 +16,30 @@ export class LoadPage {
 
     // "Action -> page" catalogue
 
-    public async getHtml(action: number, id: string): Promise<string> {
-        if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(id); }
-        if (action == Page.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(id); }
-        if (action == Page.LeaderEvolution) { return await this.getLeaderEvolutionPage(id); }
+    public async getHtml(action: number, width: number, id: string): Promise<string> {
+        if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(width, id); }
+        if (action == Page.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(width, id); }
+        if (action == Page.LeaderEvolution) { return await this.getLeaderEvolutionPage(width, id); }
         return "page not found";
     }
 
     // Get data and page
 
-    private async getLeaderSnapshotsPage(companyId: string): Promise<string> {
+    private async getLeaderSnapshotsPage(width: number, companyId: string): Promise<string> {
         if (_leaderSnapshots == null) {
             _leaderSnapshots = await this._server.getLeaderSnapshots(companyId);
         }
-        return this._pages.LeaderSnapshots(_leaderSnapshots);
+        return this._pages.LeaderSnapshots(width, _leaderSnapshots);
     };
 
-    private async getLeaderSnapshotOneToOnesPage(leaderSnapshotId: string): Promise<string> {
+    private async getLeaderSnapshotOneToOnesPage(width: number, leaderSnapshotId: string): Promise<string> {
         _leaderSnapshotId = leaderSnapshotId;
         var leaderSnapshot = await this._server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
-        return this._pages.LeaderSnapshotOneToOnes(leaderSnapshot);
+        return this._pages.LeaderSnapshotOneToOnes(width, leaderSnapshot);
     };
 
-    private async getLeaderEvolutionPage(personId: string): Promise<string> {
+    private async getLeaderEvolutionPage(width: number, personId: string): Promise<string> {
         var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
-        return this._pages.LeaderEvolution(_leaderSnapshotId, leaderDataEntries);
+        return this._pages.LeaderEvolution(width, _leaderSnapshotId, leaderDataEntries);
     };
 }

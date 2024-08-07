@@ -20,15 +20,15 @@ export class Pages {
 
     // Create Pages/SVG/HTML
 
-    public LeaderSnapshots(leaderSnapshots: LeaderSnapshot[]): string {
+    public LeaderSnapshots(width: number, leaderSnapshots: LeaderSnapshot[]): string {
         var svgPanel = new SvgPanel();
         leaderSnapshots.forEach(entry => {
-            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), 912, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
+            svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), width, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });
         return this._viewHelper.svgHtml(svgPanel)
     }
 
-    public LeaderSnapshotOneToOnes(leaderSnapshot: LeaderSnapshot): string {
+    public LeaderSnapshotOneToOnes(width: number, leaderSnapshot: LeaderSnapshot): string {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
             .add(new SvgButton("BACK", 100 - 12, Page.LeaderSnapshots, ""))
@@ -51,7 +51,7 @@ export class Pages {
         return this._viewHelper.svgHtml(svgPanel)
     }
 
-    public LeaderEvolution(leaderSnapshotId: string, leaderDataEntries: LeaderDataEntry[]): string {
+    public LeaderEvolution(width: number, leaderSnapshotId: string, leaderDataEntries: LeaderDataEntry[]): string {
         var leaderName = leaderDataEntries[0].name;
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))

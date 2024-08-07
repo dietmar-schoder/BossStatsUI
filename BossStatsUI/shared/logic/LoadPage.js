@@ -9,35 +9,35 @@ export class LoadPage {
         this._server = server;
     }
     // "Action -> page" catalogue
-    async getHtml(action, id) {
+    async getHtml(action, width, id) {
         if (action == Page.LeaderSnapshots) {
-            return await this.getLeaderSnapshotsPage(id);
+            return await this.getLeaderSnapshotsPage(width, id);
         }
         if (action == Page.LeaderSnapshotOneToOnes) {
-            return await this.getLeaderSnapshotOneToOnesPage(id);
+            return await this.getLeaderSnapshotOneToOnesPage(width, id);
         }
         if (action == Page.LeaderEvolution) {
-            return await this.getLeaderEvolutionPage(id);
+            return await this.getLeaderEvolutionPage(width, id);
         }
         return "page not found";
     }
     // Get data and page
-    async getLeaderSnapshotsPage(companyId) {
+    async getLeaderSnapshotsPage(width, companyId) {
         if (_leaderSnapshots == null) {
             _leaderSnapshots = await this._server.getLeaderSnapshots(companyId);
         }
-        return this._pages.LeaderSnapshots(_leaderSnapshots);
+        return this._pages.LeaderSnapshots(width, _leaderSnapshots);
     }
     ;
-    async getLeaderSnapshotOneToOnesPage(leaderSnapshotId) {
+    async getLeaderSnapshotOneToOnesPage(width, leaderSnapshotId) {
         _leaderSnapshotId = leaderSnapshotId;
         var leaderSnapshot = await this._server.getLeaderSnapshotOneToOnes(leaderSnapshotId);
-        return this._pages.LeaderSnapshotOneToOnes(leaderSnapshot);
+        return this._pages.LeaderSnapshotOneToOnes(width, leaderSnapshot);
     }
     ;
-    async getLeaderEvolutionPage(personId) {
+    async getLeaderEvolutionPage(width, personId) {
         var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
-        return this._pages.LeaderEvolution(_leaderSnapshotId, leaderDataEntries);
+        return this._pages.LeaderEvolution(width, _leaderSnapshotId, leaderDataEntries);
     }
     ;
 }
