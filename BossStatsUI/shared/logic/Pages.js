@@ -23,8 +23,13 @@ export class Pages {
     LeaderSnapshotOneToOnes(leaderSnapshot) {
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
-            .add(new SvgButton("BACK", 76, Page.LeaderSnapshots, ""))
-            .add(new SvgText(this._dateHelper.toDate(leaderSnapshot.date), 812));
+            .add(new SvgButton("BACK", 100 - 12, Page.LeaderSnapshots, ""))
+            .add(new SvgText(this._dateHelper.toDate(leaderSnapshot.date), 200 - 12 - 4))
+            .add(new SvgText("0", 150 - 12))
+            .add(new SvgText("1", 150 - 12))
+            .add(new SvgText("2", 150 - 12))
+            .add(new SvgText("3", 150 - 12))
+            .add(new SvgText("4", 150 - 12));
         leaderSnapshot.leaderDataEntries.forEach(entry => {
             let indent = entry.level * this._viewHelper.getMargin();
             let row = svgPanel.sub(new SvgElement(true));
@@ -32,7 +37,7 @@ export class Pages {
                 row.add(new SvgText("", indent - this._viewHelper.getMargin()));
             }
             row
-                .add(new SvgButton(entry.name, 300 - indent, Page.LeaderEvolution, entry.personId))
+                .add(new SvgButton(entry.name, 300 - 12 - indent, Page.LeaderEvolution, entry.personId))
                 .add(new SvgQuartile(entry.oneToOneQuartiles, 660));
         });
         return this._viewHelper.svgHtml(svgPanel);
@@ -41,11 +46,16 @@ export class Pages {
         var leaderName = leaderDataEntries[0].name;
         var svgPanel = new SvgPanel();
         svgPanel.sub(new SvgElement(true))
-            .add(new SvgButton("BACK", 76, Page.LeaderSnapshotOneToOnes, leaderSnapshotId))
-            .add(new SvgText(leaderName, 812));
+            .add(new SvgButton("BACK", 100 - 12, Page.LeaderSnapshotOneToOnes, leaderSnapshotId))
+            .add(new SvgText(leaderName, 200 - 12 - 4))
+            .add(new SvgText("0", 150 - 12))
+            .add(new SvgText("1", 150 - 12))
+            .add(new SvgText("2", 150 - 12))
+            .add(new SvgText("3", 150 - 12))
+            .add(new SvgText("4", 150 - 12));
         leaderDataEntries.forEach(entry => {
             svgPanel.sub(new SvgElement(true))
-                .add(new SvgText(this._dateHelper.toDate(entry.date), 300))
+                .add(new SvgText(this._dateHelper.toDate(entry.date), 300 - 12))
                 .add(new SvgQuartile(entry.oneToOneQuartiles, 660));
         });
         return this._viewHelper.svgHtml(svgPanel);
