@@ -26,6 +26,10 @@ document.addEventListener("click", async function (event: Event) {
     let element = event.target as Element;
     if (element == null) { return; }
     _actionWithId = element.id.split("|");
+    var loadingIndicator = document.getElementById("wait");
+    if (loadingIndicator != null) {
+        loadingIndicator.style.display = "block";
+    }
     document.body.innerHTML = await _loadPage.getHtml(Number(_actionWithId[0]), _width, _actionWithId[1]);
 });
 

@@ -15,7 +15,6 @@ export class Pages {
     // Create Pages/SVG/HTML
     LeaderSnapshots(width, leaderSnapshots) {
         var svgPanel = new SvgPanel();
-        svgPanel.add(new SvgText(width, 100));
         leaderSnapshots.forEach(entry => {
             svgPanel.add(new SvgButton(this._dateHelper.toDate(entry.date), width, Page.LeaderSnapshotOneToOnes, entry.id ?? ""));
         });

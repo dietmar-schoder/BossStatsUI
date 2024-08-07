@@ -1,6 +1,7 @@
 import { OneToOneQuartiles } from "../models/FuehrrStats";
 
 var grey = "rgb(230,232,232)";
+var black = "rgb(0,0,0)";
 var qBad = "rgb(255, 31, 31)";
 var qMedium = "rgb(255,191,31)";
 var qGood = "rgb(31,255,63)";
@@ -53,7 +54,8 @@ export class SvgPanel extends SvgElement {
         `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
 
     public getEndTag = () =>
-        "</svg>";
+        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
+        </svg>`;
 }
 
 export class SvgButton extends SvgElement {

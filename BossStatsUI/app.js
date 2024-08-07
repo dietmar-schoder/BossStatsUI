@@ -25,9 +25,12 @@ document.addEventListener("click", async function (event) {
         return;
     }
     _actionWithId = element.id.split("|");
+    var loadingIndicator = document.getElementById("wait");
+    if (loadingIndicator != null) {
+        loadingIndicator.style.display = "block";
+    }
     document.body.innerHTML = await _loadPage.getHtml(Number(_actionWithId[0]), _width, _actionWithId[1]);
 });
-//window.addEventListener("resize", async function () {
-//    _width = document.documentElement.clientWidth;
-//    document.body.innerHTML = await _loadPage.getHtml(Number(_actionWithId[0]), _width, _actionWithId[1]);
-//});
+document.addEventListener("resize", async function () {
+    document.body.innerHTML = await _loadPage.getHtml(Number(_actionWithId[0]), _width, _actionWithId[1]);
+});
