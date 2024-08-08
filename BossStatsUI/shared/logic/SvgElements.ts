@@ -1,4 +1,4 @@
-import { OneToOneQuartiles } from "../models/FuehrrStats";
+import { Quartiles } from "../models/FuehrrStats";
 
 var grey = "rgb(230,232,232)";
 var black = "rgb(0,0,0)";
@@ -93,9 +93,9 @@ export class SvgText extends SvgElement {
 }
 
 export class SvgQuartile extends SvgElement {
-    private _quartiles: OneToOneQuartiles;
+    private _quartiles: Quartiles;
 
-    constructor(quartiles: OneToOneQuartiles, width: number) {
+    constructor(quartiles: Quartiles, width: number) {
         super();
         this.width = width;
         this.height = lineHeight;

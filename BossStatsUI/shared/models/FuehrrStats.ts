@@ -12,9 +12,13 @@ export interface LeaderDataEntry {
     personId: string;
     name: string;
     level: number;
-    oneToOneQuartiles: OneToOneQuartiles;
+    oneToOneQuartiles: Quartiles;
+    performanceQuartiles: Quartiles;
+    performanceLeaderQuartiles: Quartiles;
+    engagementQuartiles: Quartiles;
 }
-export interface OneToOneQuartiles {
+
+export interface Quartiles {
     n: number;
     minimum: number;
     q1: number;
