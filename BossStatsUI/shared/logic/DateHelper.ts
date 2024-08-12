@@ -1,7 +1,7 @@
 export class DateHelper {
 
     public toDate(date: Date): string {
-        return `${date.getFullYear()}-${this.format2(date.getMonth())}-${this.format2(date.getDate())}`;
+        return `${date.getFullYear()}-${this.format2(date.getMonth() + 1)}-${this.format2(date.getDate())}`;
     }
 
     public daysToDate(daysSince2000: number): Date {

@@ -1,6 +1,6 @@
 export class DateHelper {
     toDate(date) {
-        return `${date.getFullYear()}-${this.format2(date.getMonth())}-${this.format2(date.getDate())}`;
+        return `${date.getFullYear()}-${this.format2(date.getMonth() + 1)}-${this.format2(date.getDate())}`;
     }
     daysToDate(daysSince2000) {
         let date = new Date(2000, 0, 1);
