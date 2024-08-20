@@ -20,7 +20,7 @@ const id = new URLSearchParams(window.location.search).get('id') ?? "";
 document.addEventListener("DOMContentLoaded", () => {
     _configuration.setWidth(document.documentElement.clientWidth);
 
-    document.body.innerHTML = showConfigValues();
+    document.body.innerHTML = _configuration.valuesToString();
 
 
 //    document.body.innerHTML = await _loadPage.getHtml(Page.LeaderSnapshots, _width, id);
@@ -47,11 +47,6 @@ window.addEventListener('resize', () => {
 
     resizeTimeout = window.setTimeout(() => {
         _configuration.setWidth(document.documentElement.clientWidth);
-        document.body.innerHTML = showConfigValues();
+        document.body.innerHTML = _configuration.valuesToString();
     }, 200);
 });
-
-function showConfigValues(): string {
-    return _configuration.screenWidth.toString() + "|" +
-        _configuration.screenMode.toString() + "|";
-}
