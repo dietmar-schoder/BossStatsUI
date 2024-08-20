@@ -28,8 +28,12 @@ export class SvgElement {
         this.isHorizontal = isHorizontal;
     }
 
-    add(element: SvgElement): SvgElement {
-        this.children.push(element);
+    addList(elements: SvgElement[]): SvgElement {
+        this.children.push(...elements);
+        return this;
+    }
+    add(...elements: SvgElement[]): SvgElement {
+        this.children.push(...elements);
         return this;
     }
 

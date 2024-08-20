@@ -23,8 +23,12 @@ export class SvgElement {
     constructor(isHorizontal = false) {
         this.isHorizontal = isHorizontal;
     }
-    add(element) {
-        this.children.push(element);
+    addList(elements) {
+        this.children.push(...elements);
+        return this;
+    }
+    add(...elements) {
+        this.children.push(...elements);
         return this;
     }
     sub(element) {
