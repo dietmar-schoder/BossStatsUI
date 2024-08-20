@@ -39,11 +39,11 @@ export class SvgPanel extends SvgElement {
     constructor(isHorizontal = false) {
         super(isHorizontal);
     }
-    getStartTag = () => `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
+    getStartTag = () => `<div width=${this.width}px><svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
     getEndTag = () => 
     //        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
     `<circle id=\"wait\" style=\"display:none\" cx=\"12\" cy=\"12\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
-        `</svg>`;
+        `</div></svg>`;
 }
 export class SvgButton extends SvgElement {
     constructor(caption, width, action, id) {
@@ -61,15 +61,19 @@ export class SvgButton extends SvgElement {
 }
 export class SvgText extends SvgElement {
     fontSize;
-    constructor(content, width, height = 24, fontSize = 14) {
+    colour;
+    background;
+    constructor(content, width, height = 24, fontSize = 14, colour = "DDDDDD", background = "DDDDDD") {
         super();
         this.content = content;
         this.width = width;
         this.height = height;
         this.fontSize = fontSize;
+        this.colour = colour;
+        this.background = background;
     }
-    getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#DDDDDD\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" >`;
+    getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" x=\"${this.x + 12}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
     getEndTag = () => "</text>";
 }
 export class SvgQuartile extends SvgElement {

@@ -16,11 +16,22 @@ export class Pages {
         this._configuration = configuration;
     }
     Test() {
-        var svgPanel = new SvgPanel(this._configuration.isHorizontalMain);
-        svgPanel.sub(new SvgElement(this._configuration.isHorizontalAB))
-            .add(new SvgText("Area A", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize))
-            .add(new SvgText("Area B", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize));
-        svgPanel.add(new SvgText("Area C", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize));
+        var svgPanel = new SvgPanel(this._configuration.isHorizontalMain)
+            .add(new SvgElement()
+            .add(new SvgElement(this._configuration.isHorizontalAB)
+            .add(new SvgText("Line 1 (A)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "3D7A6E"))
+            .add(new SvgText("Details 1 (B)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100")))
+            .add(new SvgElement(this._configuration.isHorizontalAB)
+            .add(new SvgText("Line 2 (A)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "3D7A6E"))
+            .add(new SvgText("Details 2 (B)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100")))
+            .add(new SvgElement(this._configuration.isHorizontalAB)
+            .add(new SvgText("Line 3 (A)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "3D7A6E"))
+            .add(new SvgText("Details 3 (B)", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100"))))
+            .add(new SvgElement()
+            .add(new SvgText("Area C Line 1", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A"))
+            .add(new SvgText("Area C Line 2", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A"))
+            .add(new SvgText("Area C Line 3", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A"))
+            .add(new SvgText("Area C Line 4", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A")));
         return this._viewHelper.svgHtml(svgPanel);
     }
     LeaderSnapshots(width, leaderSnapshots) {

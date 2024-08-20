@@ -51,12 +51,12 @@ export class SvgPanel extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
+        `<div width=${this.width}px><svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
 
     public getEndTag = () =>
 //        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
         `<circle id=\"wait\" style=\"display:none\" cx=\"12\" cy=\"12\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
-        `</svg>`;
+        `</div></svg>`;
 }
 
 export class SvgButton extends SvgElement {
@@ -80,18 +80,22 @@ export class SvgButton extends SvgElement {
 
 export class SvgText extends SvgElement {
     private fontSize: number;
+    private colour: string;
+    private background: string;
 
-    constructor(content: string, width: number, height: number = 24, fontSize: number = 14) {
+    constructor(content: string, width: number, height: number = 24, fontSize: number = 14, colour: string = "DDDDDD", background: string = "DDDDDD") {
         super();
         this.content = content;
         this.width = width;
         this.height = height;
         this.fontSize = fontSize;
+        this.colour = colour;
+        this.background = background;
     }
 
     public getStartTag = () =>
-        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#DDDDDD\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" >`;
+        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" x=\"${this.x + 12}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
 
     public getEndTag = () =>
         "</text>";

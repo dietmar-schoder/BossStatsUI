@@ -14,8 +14,8 @@ var _loadPage = new LoadPage(_server, _pages);
 var _actionWithId;
 const id = new URLSearchParams(window.location.search).get('id') ?? "";
 document.addEventListener("DOMContentLoaded", async function () {
-    _configuration.setWidth(document.documentElement.clientWidth);
     console.time('_loadPage.getHtml');
+    _configuration.setWidth(document.documentElement.clientWidth);
     document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
     console.timeEnd('_loadPage.getHtml');
 });
@@ -36,10 +36,10 @@ window.addEventListener('resize', async function () {
         clearTimeout(resizeTimeout);
     }
     resizeTimeout = window.setTimeout(async function () {
-        _configuration.setWidth(document.documentElement.clientWidth);
         console.time('_loadPage.getHtml');
+        _configuration.setWidth(document.documentElement.clientWidth);
         document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
         console.timeEnd('_loadPage.getHtml');
         //        document.body.innerHTML = _configuration.valuesToString();
-    }, 5);
+    }, 10);
 });
