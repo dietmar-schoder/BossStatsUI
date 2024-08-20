@@ -17,6 +17,7 @@ export class LoadPage {
     // "Action -> page" catalogue
 
     public async getHtml(action: number, width: number, id: string): Promise<string> {
+        if (action == Page.Test) { return this.getTestPage(); }
         if (action == Page.LeaderSnapshots) { return await this.getLeaderSnapshotsPage(width, id); }
         if (action == Page.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(width, id); }
         if (action == Page.LeaderEvolution) { return await this.getLeaderEvolutionPage(width, id); }
@@ -24,6 +25,10 @@ export class LoadPage {
     }
 
     // Get data and page
+
+    private getTestPage(): string {
+        return this._pages.Test();
+    };
 
     private async getLeaderSnapshotsPage(width: number, companyId: string): Promise<string> {
         if (_leaderSnapshots == null) {

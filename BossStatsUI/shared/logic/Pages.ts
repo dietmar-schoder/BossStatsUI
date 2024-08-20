@@ -5,6 +5,7 @@ import { SvgButton, SvgElement, SvgPanel, SvgQuartile, SvgText } from "./SvgElem
 import { Configuration } from "./Configuration.js";
 
 export enum Page {
+    Test,
     LeaderSnapshots,
     LeaderSnapshotOneToOnes,
     LeaderEvolution
