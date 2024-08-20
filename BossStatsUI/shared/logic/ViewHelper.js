@@ -1,5 +1,9 @@
 var margin = 12;
 export class ViewHelper {
+    config;
+    constructor(config) {
+        this.config = config;
+    }
     svgHtml(root) {
         this.calculateSizes(root);
         this.calculateXYs(root);

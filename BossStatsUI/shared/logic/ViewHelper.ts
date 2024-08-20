@@ -1,8 +1,14 @@
+import { Configuration } from "./Configuration.js";
 import { SvgElement } from "./SvgElements.js";
 
 var margin = 12;
 
 export class ViewHelper {
+    private config: Configuration;
+
+    constructor(config: Configuration) {
+        this.config = config;
+    }
 
     public svgHtml(root: SvgElement): string {
         this.calculateSizes(root);
