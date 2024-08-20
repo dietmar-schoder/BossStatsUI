@@ -1,18 +1,28 @@
 import { SvgButton, SvgElement, SvgPanel, SvgQuartile, SvgText } from "./SvgElements.js";
 export var Page;
 (function (Page) {
-    Page[Page["LeaderSnapshots"] = 0] = "LeaderSnapshots";
-    Page[Page["LeaderSnapshotOneToOnes"] = 1] = "LeaderSnapshotOneToOnes";
-    Page[Page["LeaderEvolution"] = 2] = "LeaderEvolution";
+    Page[Page["Test"] = 0] = "Test";
+    Page[Page["LeaderSnapshots"] = 1] = "LeaderSnapshots";
+    Page[Page["LeaderSnapshotOneToOnes"] = 2] = "LeaderSnapshotOneToOnes";
+    Page[Page["LeaderEvolution"] = 3] = "LeaderEvolution";
 })(Page || (Page = {}));
 export class Pages {
+    _configuration;
     _dateHelper;
     _viewHelper;
-    constructor(dateHelper, viewHelper) {
+    constructor(configuration, dateHelper, viewHelper) {
         this._dateHelper = dateHelper;
         this._viewHelper = viewHelper;
+        this._configuration = configuration;
     }
-    // Create Pages/SVG/HTML
+    Test() {
+        var svgPanel = new SvgPanel(this._configuration.isHorizontalMain);
+        svgPanel.sub(new SvgElement(this._configuration.isHorizontalAB))
+            .add(new SvgText("A", this._configuration.widthAB))
+            .add(new SvgText("B", this._configuration.widthAB));
+        svgPanel.add(new SvgText("C", this._configuration.widthC));
+        return this._viewHelper.svgHtml(svgPanel);
+    }
     LeaderSnapshots(width, leaderSnapshots) {
         var svgPanel = new SvgPanel();
         leaderSnapshots.forEach(entry => {

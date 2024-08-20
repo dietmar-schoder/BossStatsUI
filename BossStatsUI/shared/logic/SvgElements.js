@@ -36,8 +36,8 @@ export class SvgElement {
     getEndTag = () => this.endTag;
 }
 export class SvgPanel extends SvgElement {
-    constructor() {
-        super();
+    constructor(isHorizontal = false) {
+        super(isHorizontal);
     }
     getStartTag = () => `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
     getEndTag = () => `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
@@ -64,7 +64,8 @@ export class SvgText extends SvgElement {
         this.width = width;
         this.height = lineHeight;
     }
-    getStartTag = () => `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">`;
+    getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#DDDDDD\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">`;
     getEndTag = () => "</text>";
 }
 export class SvgQuartile extends SvgElement {

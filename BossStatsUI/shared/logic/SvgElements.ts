@@ -86,6 +86,7 @@ export class SvgText extends SvgElement {
     }
 
     public getStartTag = () =>
+        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#DDDDDD\" stroke-width=\"0\" />` +
         `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">`;
 
     public getEndTag = () =>

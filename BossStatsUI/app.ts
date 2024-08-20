@@ -11,19 +11,19 @@ var _configuration = new Configuration();
 var _dateHelper = new DateHelper();
 var _server = new FuehrrStatsServer(_dateHelper);
 var _viewHelper = new ViewHelper(_configuration);
-var _pages = new Pages(_dateHelper, _viewHelper);
+var _pages = new Pages(_configuration, _dateHelper, _viewHelper);
 var _loadPage = new LoadPage(_server, _pages);
 var _actionWithId: string[];
 
 const id = new URLSearchParams(window.location.search).get('id') ?? "";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async function () {
     _configuration.setWidth(document.documentElement.clientWidth);
 
-    document.body.innerHTML = _configuration.valuesToString();
+    //document.body.innerHTML = _configuration.valuesToString();
 
 
-//    document.body.innerHTML = await _loadPage.getHtml(Page.LeaderSnapshots, _width, id);
+    document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
 });
 
 //document.addEventListener("click", async function (event: Event) {
@@ -40,13 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 var resizeTimeout: number | undefined;
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', async function () {
     if (resizeTimeout) {
         clearTimeout(resizeTimeout);
     }
 
-    resizeTimeout = window.setTimeout(() => {
+    resizeTimeout = window.setTimeout(async function () {
         _configuration.setWidth(document.documentElement.clientWidth);
-        document.body.innerHTML = _configuration.valuesToString();
+        document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
+//        document.body.innerHTML = _configuration.valuesToString();
     }, 200);
 });

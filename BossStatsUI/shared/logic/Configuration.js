@@ -9,6 +9,8 @@ export class Configuration {
     widthAreaAB = 0;
     widthAB = 0;
     widthC = 0;
+    isHorizontalMain = false;
+    isHorizontalAB = false;
     lineHeight = 0;
     fontSize = 0;
     setWidth(screenWidth) {
@@ -17,6 +19,8 @@ export class Configuration {
         this.widthAreaAB = this.screenMode == 0 ? Math.round(this.screenWidth * 2 / 3) : this.screenWidth;
         this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round(this.widthAreaAB / 2);
         this.widthC = this.screenMode == 1 ? this.widthAreaAB : this.widthAB;
+        this.isHorizontalMain = this.screenMode == 0;
+        this.isHorizontalAB = this.screenMode < 2;
         this.lineHeight = this.screenMode == 2 ? this.lineHeightMobile : this.lineHeightPC;
         this.fontSize = Math.round(this.lineHeight * this.fontSizeFactor);
     }
