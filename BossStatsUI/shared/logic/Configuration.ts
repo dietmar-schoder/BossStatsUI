@@ -12,6 +12,9 @@ export class Configuration {
     public widthAB: number = 0;
     public widthC: number = 0;
 
+    public isHorizontalMain: boolean = false;
+    public isHorizontalAB: boolean = false;
+
     public lineHeight: number = 0;
     public fontSize: number = 0;
 
@@ -22,6 +25,9 @@ export class Configuration {
         this.widthAreaAB = this.screenMode == 0 ? Math.round(this.screenWidth * 2 /3) : this.screenWidth;
         this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round(this.widthAreaAB / 2);
         this.widthC = this.screenMode == 1 ? this.widthAreaAB : this.widthAB;
+
+        this.isHorizontalMain = this.screenMode == 0;
+        this.isHorizontalAB = this.screenMode < 2;
 
         this.lineHeight = this.screenMode == 2 ? this.lineHeightMobile : this.lineHeightPC;
         this.fontSize = Math.round(this.lineHeight * this.fontSizeFactor);

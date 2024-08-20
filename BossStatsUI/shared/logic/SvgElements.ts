@@ -46,8 +46,8 @@ export class SvgElement {
 }
 
 export class SvgPanel extends SvgElement {
-    constructor() {
-        super();
+    constructor(isHorizontal: boolean = false) {
+        super(isHorizontal);
     }
 
     public getStartTag = () =>

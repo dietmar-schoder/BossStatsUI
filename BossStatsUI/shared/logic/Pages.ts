@@ -2,6 +2,7 @@ import { DateHelper } from "./DateHelper.js";
 import { ViewHelper } from "./ViewHelper.js";
 import { LeaderSnapshot, LeaderDataEntry} from "../models/FuehrrStats.js";
 import { SvgButton, SvgElement, SvgPanel, SvgQuartile, SvgText } from "./SvgElements.js";
+import { Configuration } from "./Configuration.js";
 
 export enum Page {
     LeaderSnapshots,
@@ -10,15 +11,24 @@ export enum Page {
 }
 
 export class Pages {
+    private _configuration: Configuration;
     private _dateHelper: DateHelper;
     private _viewHelper: ViewHelper;
 
-    constructor(dateHelper: DateHelper, viewHelper: ViewHelper) {
+    constructor(configuration: Configuration, dateHelper: DateHelper, viewHelper: ViewHelper) {
         this._dateHelper = dateHelper;
         this._viewHelper = viewHelper;
+        this._configuration = configuration;
     }
 
-    // Create Pages/SVG/HTML
+    public Test(): string {
+        var svgPanel = new SvgPanel(this._configuration.isHorizontalMain); 
+        svgPanel.sub(new SvgElement(this._configuration.isHorizontalAB))
+            .add(new SvgText("A", this._configuration.widthAB))
+            .add(new SvgText("B", this._configuration.widthAB))
+        svgPanel.add(new SvgText("C", this._configuration.widthC))
+        return this._viewHelper.svgHtml(svgPanel)
+    }
 
     public LeaderSnapshots(width: number, leaderSnapshots: LeaderSnapshot[]): string {
         var svgPanel = new SvgPanel();
