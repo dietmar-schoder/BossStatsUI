@@ -1,7 +1,7 @@
 export class Configuration {
     readonly mobileWidthMax: number = 768;
     readonly desktopWidthMax: number = 1440;
-    readonly lineHeightPC: number = 24;
+    readonly lineHeightPC: number = 36;
     readonly lineHeightMobile: number = 48;
     readonly fontSizeFactor: number = 14 / 24;
 

@@ -18,9 +18,9 @@ export class Pages {
     Test() {
         var svgPanel = new SvgPanel(this._configuration.isHorizontalMain);
         svgPanel.sub(new SvgElement(this._configuration.isHorizontalAB))
-            .add(new SvgText("A", this._configuration.widthAB))
-            .add(new SvgText("B", this._configuration.widthAB));
-        svgPanel.add(new SvgText("C", this._configuration.widthC));
+            .add(new SvgText("Area A", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize))
+            .add(new SvgText("Area B", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize));
+        svgPanel.add(new SvgText("Area C", this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize));
         return this._viewHelper.svgHtml(svgPanel);
     }
     LeaderSnapshots(width, leaderSnapshots) {

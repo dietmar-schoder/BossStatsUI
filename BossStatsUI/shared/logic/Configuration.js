@@ -1,7 +1,7 @@
 export class Configuration {
     mobileWidthMax = 768;
     desktopWidthMax = 1440;
-    lineHeightPC = 24;
+    lineHeightPC = 36;
     lineHeightMobile = 48;
     fontSizeFactor = 14 / 24;
     screenWidth = 0;

@@ -15,8 +15,9 @@ var _actionWithId;
 const id = new URLSearchParams(window.location.search).get('id') ?? "";
 document.addEventListener("DOMContentLoaded", async function () {
     _configuration.setWidth(document.documentElement.clientWidth);
-    //document.body.innerHTML = _configuration.valuesToString();
+    console.time('_loadPage.getHtml');
     document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
+    console.timeEnd('_loadPage.getHtml');
 });
 //document.addEventListener("click", async function (event: Event) {
 //    if (event == null || event.target == null) { return; }
@@ -36,7 +37,9 @@ window.addEventListener('resize', async function () {
     }
     resizeTimeout = window.setTimeout(async function () {
         _configuration.setWidth(document.documentElement.clientWidth);
+        console.time('_loadPage.getHtml');
         document.body.innerHTML = await _loadPage.getHtml(Page.Test, 0, "");
+        console.timeEnd('_loadPage.getHtml');
         //        document.body.innerHTML = _configuration.valuesToString();
-    }, 200);
+    }, 5);
 });

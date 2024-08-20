@@ -6,8 +6,8 @@ var qGood = "rgb(31,255,63)";
 var q2Bad = "rgb(235, 15, 15)";
 var q2Medium = "rgb(235,171,15)";
 var q2Good = "rgb(15,235,15)";
-var lineHeight = 24;
-var margin2 = 6;
+var lineHeight = 0;
+var margin2 = 2;
 export class SvgElement {
     children = [];
     startTag = "";
@@ -40,8 +40,10 @@ export class SvgPanel extends SvgElement {
         super(isHorizontal);
     }
     getStartTag = () => `<svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
-    getEndTag = () => `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
-        </svg>`;
+    getEndTag = () => 
+    //        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
+    `<circle id=\"wait\" style=\"display:none\" cx=\"12\" cy=\"12\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
+        `</svg>`;
 }
 export class SvgButton extends SvgElement {
     constructor(caption, width, action, id) {
@@ -58,14 +60,16 @@ export class SvgButton extends SvgElement {
         <rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
 }
 export class SvgText extends SvgElement {
-    constructor(content, width) {
+    fontSize;
+    constructor(content, width, height = 24, fontSize = 14) {
         super();
         this.content = content;
         this.width = width;
-        this.height = lineHeight;
+        this.height = height;
+        this.fontSize = fontSize;
     }
     getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#DDDDDD\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">`;
+        `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" >`;
     getEndTag = () => "</text>";
 }
 export class SvgQuartile extends SvgElement {
