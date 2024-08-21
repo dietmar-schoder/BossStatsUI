@@ -14,33 +14,37 @@ export class ViewHelper {
     }
     getMargin = () => margin;
     calculateSizes(element) {
-        if (element.children.length == 0 || element.width > 0 || element.height > 0) {
+        if (element.IsLeaf || element.width > 0 || element.height > 0) {
             return;
         }
         if (element.isHorizontal) {
             element.children.forEach(child => {
                 this.calculateSizes(child);
+                var margin = child.IsLeaf ? this.config.margin : 0;
                 element.width += child.width + margin;
-                element.height = child.height > element.height ? child.height : element.height;
+                element.height = (child.height + margin) > element.height ? (child.height + margin) : element.height;
             });
         }
         else {
             element.children.forEach(child => {
                 this.calculateSizes(child);
+                var margin = child.IsLeaf ? this.config.margin : 0;
                 element.height += child.height + margin;
-                element.width = child.width > element.width ? child.width : element.width;
+                element.width = (child.width + margin) > element.width ? (child.width + margin) : element.width;
             });
         }
     }
     calculateXYs(element) {
-        if (element.children.length == 0) {
+        if (element.IsLeaf) {
             return;
         }
         if (element.isHorizontal) {
             var xIncrement = element.x;
             element.children.forEach(child => {
-                child.x = xIncrement;
-                child.y = element.y;
+                var margin = child.IsLeaf ? this.config.margin : 0;
+                var offset = child.IsLeaf ? this.config.margin2 : 0;
+                child.x = xIncrement + offset;
+                child.y = element.y + offset;
                 xIncrement += child.width + margin;
                 this.calculateXYs(child);
             });
@@ -48,8 +52,10 @@ export class ViewHelper {
         else {
             var yIncrement = element.y;
             element.children.forEach(child => {
-                child.x = element.x;
-                child.y = yIncrement;
+                var margin = child.IsLeaf ? this.config.margin : 0;
+                var offset = child.IsLeaf ? this.config.margin2 : 0;
+                child.x = element.x + offset;
+                child.y = yIncrement + offset;
                 yIncrement += child.height + margin;
                 this.calculateXYs(child);
             });

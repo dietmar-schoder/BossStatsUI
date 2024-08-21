@@ -20,6 +20,9 @@ export class SvgElement {
     isHorizontal = false;
     action = 0;
     id = "";
+    get IsLeaf() {
+        return this.children.length == 0;
+    }
     constructor(isHorizontal = false) {
         this.isHorizontal = isHorizontal;
     }

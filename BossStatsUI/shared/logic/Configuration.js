@@ -4,6 +4,8 @@ export class Configuration {
     lineHeightPC = 36;
     lineHeightMobile = 48;
     fontSizeFactor = 14 / 24;
+    margin = this.lineHeightPC / 3;
+    margin2 = this.margin / 2;
     screenWidth = 0;
     screenMode = 0; // 0: cinema, 1: desktop, 2: mobile
     widthAreaAB = 0;
@@ -16,8 +18,8 @@ export class Configuration {
     setWidth(screenWidth) {
         this.screenWidth = screenWidth;
         this.screenMode = screenWidth < this.mobileWidthMax ? 2 : screenWidth < this.desktopWidthMax ? 1 : 0;
-        this.widthAreaAB = this.screenMode == 0 ? Math.round(this.screenWidth * 2 / 3) : this.screenWidth;
-        this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round(this.widthAreaAB / 2);
+        this.widthAreaAB = (this.screenMode == 0 ? Math.round(this.screenWidth * 2 / 3) : this.screenWidth) - this.margin;
+        this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round((this.widthAreaAB - this.margin) / 2);
         this.widthC = this.screenMode == 1 ? this.widthAreaAB : this.widthAB;
         this.isHorizontalMain = this.screenMode == 0;
         this.isHorizontalAB = this.screenMode < 2;

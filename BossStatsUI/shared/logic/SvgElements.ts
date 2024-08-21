@@ -24,6 +24,10 @@ export class SvgElement {
     public action = 0;
     public id = "";
 
+    public get IsLeaf(): boolean {
+        return this.children.length == 0;
+    }
+
     constructor(isHorizontal = false) {
         this.isHorizontal = isHorizontal;
     }

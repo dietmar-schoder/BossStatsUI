@@ -4,6 +4,8 @@ export class Configuration {
     readonly lineHeightPC: number = 36;
     readonly lineHeightMobile: number = 48;
     readonly fontSizeFactor: number = 14 / 24;
+    public readonly margin: number = this.lineHeightPC / 3;
+    public readonly margin2: number = this.margin / 2;
 
     public screenWidth: number = 0;
     public screenMode: number = 0; // 0: cinema, 1: desktop, 2: mobile
@@ -22,8 +24,8 @@ export class Configuration {
         this.screenWidth = screenWidth;
         this.screenMode = screenWidth < this.mobileWidthMax ? 2 : screenWidth < this.desktopWidthMax ? 1 : 0;
 
-        this.widthAreaAB = this.screenMode == 0 ? Math.round(this.screenWidth * 2 /3) : this.screenWidth;
-        this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round(this.widthAreaAB / 2);
+        this.widthAreaAB = (this.screenMode == 0 ? Math.round(this.screenWidth * 2 / 3) : this.screenWidth) - this.margin;
+        this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round((this.widthAreaAB - this.margin) / 2);
         this.widthC = this.screenMode == 1 ? this.widthAreaAB : this.widthAB;
 
         this.isHorizontalMain = this.screenMode == 0;
