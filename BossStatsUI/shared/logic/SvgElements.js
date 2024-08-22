@@ -18,8 +18,6 @@ export class SvgElement {
     width = 0;
     height = 0;
     isHorizontal = false;
-    action = 0;
-    id = "";
     get IsLeaf() {
         return this.children.length == 0;
     }
@@ -49,27 +47,31 @@ export class SvgPanel extends SvgElement {
     getStartTag = () => `<div width=${this.width}px><svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
     getEndTag = () => 
     //        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
-    `<circle id=\"wait\" style=\"display:none\" cx=\"12\" cy=\"12\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
+    `<circle id=\"wait\" style=\"display:none\" cx=\"${this.width - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
         `</div></svg>`;
 }
-export class SvgButton2 extends SvgElement {
-    constructor(caption, width, action, id) {
-        super();
-        this.content = caption;
-        this.width = width;
-        this.height = 24;
-        this.action = action;
-        this.id = id;
-    }
-    getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"${grey}\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" x=\"${this.x + margin2}\" y=\"${this.y + this.height / 2 + 1}\">`;
-    getEndTag = () => `</text>` +
-        `<rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
-}
+//export class SvgButton2 extends SvgElement {
+//    constructor(caption: string, width: number, action: number, id: string) {
+//        super();
+//        this.content = caption;
+//        this.width = width;
+//        this.height = 24;
+//        this.action = action;
+//        this.id = id;
+//    }
+//    public getStartTag = () =>
+//        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"${grey}\" stroke-width=\"0\" />` +
+//        `<text alignment-baseline=\"middle\" x=\"${this.x + margin2}\" y=\"${this.y + this.height / 2 + 1}\">`;
+//    public getEndTag = () =>
+//        `</text>` +
+//        `<rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+//}
 export class SvgButton extends SvgElement {
     fontSize;
     background;
-    constructor(caption, width, height, fontSize, background, action, id) {
+    action;
+    params;
+    constructor(caption, width, height, fontSize, background, action, params) {
         super();
         this.content = caption;
         this.width = width;
@@ -77,12 +79,12 @@ export class SvgButton extends SvgElement {
         this.fontSize = fontSize;
         this.background = background;
         this.action = action;
-        this.id = id;
+        this.params = params;
     }
     getStartTag = () => `<rect x=\"${this.x}\" y=\"${this.y}\" rx="4" ry="4" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
         `<text alignment-baseline=\"middle\" text-anchor="middle" x=\"${this.x + this.width / 2}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#FFFFFF\">`;
     getEndTag = () => `</text>` +
-        `<rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+        `<rect id=\"${this.action}|${this.params}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
 }
 export class SvgTextCentered extends SvgElement {
     fontSize;
