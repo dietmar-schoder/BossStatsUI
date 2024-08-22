@@ -67,23 +67,70 @@ export class SvgPanel extends SvgElement {
         `</div></svg>`;
 }
 
-export class SvgButton extends SvgElement {
+export class SvgButton2 extends SvgElement {
     constructor(caption: string, width: number, action: number, id: string) {
         super();
         this.content = caption;
         this.width = width;
-        this.height = lineHeight;
+        this.height = 24;
         this.action = action;
         this.id = id;
     }
 
     public getStartTag = () =>
-        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"${grey}\" stroke-width=\"0\" />
-        <text alignment-baseline=\"middle\" x=\"${this.x + margin2}\" y=\"${this.y + this.height / 2 + 1}\">`;
+        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"${grey}\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" x=\"${this.x + margin2}\" y=\"${this.y + this.height / 2 + 1}\">`;
 
     public getEndTag = () =>
-        `</text>
-        <rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+        `</text>` +
+        `<rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+}
+
+export class SvgButton extends SvgElement {
+    private fontSize: number;
+    private background: string;
+
+    constructor(caption: string, width: number, height: number, fontSize: number, background: string, action: number, id: string) {
+        super();
+        this.content = caption;
+        this.width = width;
+        this.height = height;
+        this.fontSize = fontSize;
+        this.background = background;
+        this.action = action;
+        this.id = id;
+    }
+
+    public getStartTag = () =>
+        `<rect x=\"${this.x}\" y=\"${this.y}\" rx="4" ry="4" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" text-anchor="middle" x=\"${this.x + this.width / 2}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#FFFFFF\">`;
+
+    public getEndTag = () =>
+        `</text>` +
+        `<rect id=\"${this.action}|${this.id}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+}
+
+export class SvgTextCentered extends SvgElement {
+    private fontSize: number;
+    private colour: string;
+    private background: string;
+
+    constructor(content: string, width: number, height: number = 24, fontSize: number = 14, colour: string = "000000", background: string = "FFFFFF") {
+        super();
+        this.content = content;
+        this.width = width;
+        this.height = height;
+        this.fontSize = fontSize;
+        this.colour = colour;
+        this.background = background;
+    }
+
+    public getStartTag = () =>
+        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
+        `<text alignment-baseline=\"middle\" text-anchor="middle" x=\"${this.x + this.width / 2}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
+
+    public getEndTag = () =>
+        `</text>`;
 }
 
 export class SvgText extends SvgElement {
@@ -91,7 +138,7 @@ export class SvgText extends SvgElement {
     private colour: string;
     private background: string;
 
-    constructor(content: string, width: number, height: number = 24, fontSize: number = 14, colour: string = "DDDDDD", background: string = "DDDDDD") {
+    constructor(content: string, width: number, height: number = 24, fontSize: number = 14, colour: string = "000000", background: string = "FFFFFF") {
         super();
         this.content = content;
         this.width = width;
@@ -106,7 +153,7 @@ export class SvgText extends SvgElement {
         `<text alignment-baseline=\"middle\" x=\"${this.x + 12}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
 
     public getEndTag = () =>
-        "</text>";
+        `</text>`;
 }
 
 export class SvgQuartile extends SvgElement {
