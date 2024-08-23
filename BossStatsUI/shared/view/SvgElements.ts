@@ -1,4 +1,4 @@
-import { Quartiles } from "../models/FuehrrStats";
+import { Quartiles } from "../models/FuehrrStats.js";
 
 var grey = "rgb(230,232,232)";
 var black = "rgb(0,0,0)";

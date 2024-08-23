@@ -1,4 +1,4 @@
-import { Configuration } from "./Configuration.js";
+import { Configuration } from "../helpers/Configuration.js";
 import { SvgElement } from "./SvgElements.js";
 
 var margin = 12;

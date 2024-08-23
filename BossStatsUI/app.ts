@@ -1,11 +1,11 @@
 //concurrently "http-server -a localhost -p 8080"
 
-import { DateHelper } from "./shared/logic/DateHelper.js";
-import { ViewHelper } from "./shared/logic/ViewHelper.js";
-import { Page, Pages } from "./shared/logic/Pages.js";
+import { Configuration } from "./shared/helpers/Configuration.js";
+import { DateHelper } from "./shared/helpers/DateHelper.js";
 import { FuehrrStatsServer } from "./shared/logic/FuehrrStatsServer.js";
-import { LoadPage } from "./shared/logic/LoadPage.js";
-import { Configuration } from "./shared/logic/Configuration.js";
+import { LoadPage } from "./shared/logic/Manager.js";
+import { Pages, Page } from "./shared/view/Pages.js";
+import { ViewHelper } from "./shared/view/UICalculator.js";
 
 const _configuration = new Configuration();
 const _dateHelper = new DateHelper();

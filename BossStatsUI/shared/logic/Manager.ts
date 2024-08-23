@@ -1,6 +1,6 @@
 import { LeaderSnapshot } from "../models/FuehrrStats.js";
+import { Pages, Page } from "../view/Pages.js";
 import { FuehrrStatsServer } from "./FuehrrStatsServer.js";
-import { Page, Pages } from "./Pages.js";
 
 export class LoadPage {
     private _server: FuehrrStatsServer;

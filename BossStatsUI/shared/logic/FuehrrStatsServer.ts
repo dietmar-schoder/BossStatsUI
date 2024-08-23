@@ -1,5 +1,5 @@
-import { DateHelper } from "./DateHelper";
-import { LeaderDataEntry, LeaderSnapshot } from "../models/FuehrrStats";
+import { DateHelper } from "../helpers/DateHelper.js";
+import { LeaderDataEntry, LeaderSnapshot } from "../models/FuehrrStats.js";
 
 export class FuehrrStatsServer {
     private _dateHelper: DateHelper;

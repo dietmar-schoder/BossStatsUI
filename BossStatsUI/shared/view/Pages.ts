@@ -1,11 +1,10 @@
-import { DateHelper } from "./DateHelper.js";
-import { ViewHelper } from "./ViewHelper.js";
-import { LeaderSnapshot, LeaderDataEntry} from "../models/FuehrrStats.js";
-import { SvgButton, SvgElement, SvgPanel, SvgQuartile, SvgText, SvgTextCentered } from "./SvgElements.js";
-import { Configuration } from "./Configuration.js";
+import { Configuration } from "../helpers/Configuration.js";
+import { DateHelper } from "../helpers/DateHelper.js";
+import { LeaderSnapshot, LeaderDataEntry } from "../models/FuehrrStats.js";
+import { SvgElement, SvgButton, SvgTextCentered, SvgText, SvgPanel } from "./SvgElements.js";
+import { ViewHelper } from "./UICalculator.js";
 
 export enum Page {
-    Test,
     LeaderSnapshots,
     LeaderSnapshotOneToOnes,
     LeaderEvolution
@@ -32,9 +31,7 @@ export class Pages {
 
         const dataEntriesC: string[] = ["Area C Line 1", "Area C Line 2", "Area C Line 3", "Area C Line 4"];
 
-        const date = this._dateHelper.daysToDate(selectedLeaderSnapshot.daysSince2000);
-        const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
-        const formattedDate = date.toLocaleDateString('en-GB', options);
+        const formattedDate = this._dateHelper.daysToDdMmmYyyy(selectedLeaderSnapshot.daysSince2000);
         const prevIndex = selectedLeaderSnapshotIndex + (selectedLeaderSnapshotIndex < leaderSnapshots.length - 1 ? 1 : 0);
         const nextIndex = selectedLeaderSnapshotIndex - (selectedLeaderSnapshotIndex > 0 ? 1 : 0);
         const prevActionParams = `${companyId};${prevIndex}`;
@@ -55,41 +52,6 @@ export class Pages {
             tableC.push(new SvgElement(this._configuration.isHorizontalAB).add(
                 new SvgText(entry, this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A")))
         });
-
-        return this._viewHelper.svgHtml(
-            new SvgPanel(this._configuration.isHorizontalMain).add(
-                new SvgElement().addList(tableAB),
-                new SvgElement().addList(tableC))
-        );
-    }
-
-    public Test(leaderSnapshots: LeaderSnapshot[], selectedLeaderSnapshotIndex: number): string {
-        const leaderDataEntries: LeaderDataEntry[] = leaderSnapshots[selectedLeaderSnapshotIndex].leaderDataEntries;
-        //const dataEntriesC: string[] = ["Area C Line 1", "Area C Line 2", "Area C Line 3", "Area C Line 4"];
-        const tableAB: SvgElement[] = [];
-        const tableC: SvgElement[] = [];
-        const menuButtonWidth: number = Math.round((this._configuration.widthAB + this._configuration.margin) * 0.25) - this._configuration.margin;
-        const menuDateWidth: number = Math.round((this._configuration.widthAB + this._configuration.margin) * 0.5) - this._configuration.margin;
-
-        const now = new Date();
-        const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
-        const formattedDate = now.toLocaleDateString('en-GB', options);
-
-        tableAB.push(new SvgElement(true).add(
-            new SvgButton("Prev", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", 0, ""),
-            new SvgTextCentered(formattedDate, menuDateWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF"),
-            new SvgButton("Next", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", 0, "")));
-
-        leaderDataEntries.forEach(entry => {
-            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
-                new SvgText(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "3D7A6E"),
-                new SvgText(entry.level.toString(), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100")))
-        });
-
-        //dataEntriesC.forEach(entry => {
-        //    tableC.push(new SvgElement(this._configuration.isHorizontalAB).add(
-        //        new SvgText(entry, this._configuration.widthC, this._configuration.lineHeight, this._configuration.fontSize, "FAC100", "773D7A")))
-        //});
 
         return this._viewHelper.svgHtml(
             new SvgPanel(this._configuration.isHorizontalMain).add(

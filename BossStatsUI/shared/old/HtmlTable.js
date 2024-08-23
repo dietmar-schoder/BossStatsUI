@@ -1,4 +1,4 @@
-import { SvgElement } from "./SvgElements.js";
+import { SvgElement } from "../view/SvgElements.js";
 // ---
 //var table = new Table();
 //var stackPanel = new HtmlComponent(table);

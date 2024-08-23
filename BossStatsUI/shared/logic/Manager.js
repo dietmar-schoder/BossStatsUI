@@ -1,4 +1,4 @@
-import { Page } from "./Pages.js";
+import { Page } from "../view/Pages.js";
 export class LoadPage {
     _server;
     _pages;
