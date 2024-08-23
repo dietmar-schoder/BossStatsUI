@@ -1,5 +1,5 @@
 import { Configuration } from "../helpers/Configuration.js";
-import { SvgElement } from "./SvgElements.js";
+import { SvgElement } from "./Svg.js";
 
 var margin = 12;
 

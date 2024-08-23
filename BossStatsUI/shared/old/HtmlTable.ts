@@ -1,4 +1,4 @@
-import { SvgElement } from "../view/SvgElements.js";
+import { SvgElement } from "../view/Svg.js";
 
 // ---
 //var table = new Table();

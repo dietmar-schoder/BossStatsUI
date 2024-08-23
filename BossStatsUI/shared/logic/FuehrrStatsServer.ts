@@ -16,18 +16,18 @@ export class FuehrrStatsServer {
         return leaderSnapshots;
     }
 
+    public async getLeaderSnapshotOneToOnes(leaderSnapshotId: string): Promise<LeaderSnapshot> {
+        let leaderSnapshot = await this.getFromServer<LeaderSnapshot>(`https://fuehrrstats.azurewebsites.net/api/leadersnapshots/${leaderSnapshotId}`);
+        leaderSnapshot.date = this._dateHelper.daysToDate(leaderSnapshot.daysSince2000);
+        return leaderSnapshot;
+    }
+
     public async getLeaderDataEntries(personId: string): Promise<LeaderDataEntry[]> {
         let leaderDataEntries = await this.getFromServer<LeaderDataEntry[]>(`https://fuehrrstats.azurewebsites.net/api/leaders/${personId}/leaderdataentries`);
         leaderDataEntries.forEach(entry => {
             entry.date = this._dateHelper.daysToDate(entry.daysSince2000);
         })
         return leaderDataEntries;
-    }
-
-    public async getLeaderSnapshotOneToOnes(leaderSnapshotId: string): Promise<LeaderSnapshot> {
-        let leaderSnapshot = await this.getFromServer<LeaderSnapshot>(`https://fuehrrstats.azurewebsites.net/api/leadersnapshots/${leaderSnapshotId}`);
-        leaderSnapshot.date = this._dateHelper.daysToDate(leaderSnapshot.daysSince2000);
-        return leaderSnapshot;
     }
 
     private async getFromServer<T>(url: string): Promise<T> {
