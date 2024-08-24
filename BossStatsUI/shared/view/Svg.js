@@ -41,13 +41,13 @@ export class SvgElement {
     getEndTag = () => this.endTag;
 }
 export class SvgPanel extends SvgElement {
-    constructor(isHorizontal = false) {
+    _screenWidth;
+    constructor(screenWidth, isHorizontal = false) {
         super(isHorizontal);
+        this._screenWidth = screenWidth;
     }
-    getStartTag = () => `<div width=${this.width}px><svg viewBox=\"0 0 ${this.width} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
-    getEndTag = () => 
-    //        `<rect id=\"wait\" style=\"display:none\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" fill=\"${black}\" stroke-width=\"0\" />
-    `<circle id=\"wait\" style=\"display:none\" cx=\"${this.width - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
+    getStartTag = () => `<div width=${this._screenWidth}px><svg viewBox=\"0 0 ${this._screenWidth} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
+    getEndTag = () => `<circle id=\"wait\" style=\"display:none\" cx=\"${this.width - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
         `</div></svg>`;
 }
 //export class SvgButton2 extends SvgElement {

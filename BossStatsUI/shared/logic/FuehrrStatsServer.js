@@ -1,6 +1,8 @@
 export class FuehrrStatsServer {
+    _document;
     _dateHelper;
-    constructor(dateHelper) {
+    constructor(document, dateHelper) {
+        this._document = document;
         this._dateHelper = dateHelper;
     }
     async getLeaderSnapshots(companyId) {
@@ -27,6 +29,10 @@ export class FuehrrStatsServer {
         headers.set('Content-Type', 'application/json');
         headers.set('Accept', 'application/json');
         const request = new Request(url, { method: 'GET', headers: headers });
+        var loadingIndicator = this._document.getElementById("wait");
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "block";
+        }
         return fetch(request)
             .then(res => res.json())
             .then(res => { return res; });

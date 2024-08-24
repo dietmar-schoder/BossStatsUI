@@ -1,4 +1,6 @@
 export class Configuration {
+    private _document: Document;
+
     readonly mobileWidthMax: number = 768;
     readonly desktopWidthMax: number = 1440;
     readonly lineHeightPC: number = 36;
@@ -20,9 +22,13 @@ export class Configuration {
     public lineHeight: number = 0;
     public fontSize: number = 0;
 
-    public setWidth(screenWidth: number) {
-        this.screenWidth = screenWidth;
-        this.screenMode = screenWidth < this.mobileWidthMax ? 2 : screenWidth < this.desktopWidthMax ? 1 : 0;
+    constructor(document: Document) {
+        this._document = document;
+    }
+
+    public setWidth() {
+        this.screenWidth = this._document.documentElement.clientWidth;
+        this.screenMode = this.screenWidth < this.mobileWidthMax ? 2 : this.screenWidth < this.desktopWidthMax ? 1 : 0;
 
         this.widthAreaAB = (this.screenMode == 0 ? Math.round(this.screenWidth * 2 / 3) : this.screenWidth) - this.margin;
         this.widthAB = this.screenMode == 2 ? this.widthAreaAB : Math.round((this.widthAreaAB - this.margin) / 2);
@@ -35,13 +41,12 @@ export class Configuration {
         this.fontSize = Math.round(this.lineHeight * this.fontSizeFactor);
     }
 
-    public valuesToString(): string {
-        return "screenWidth: " + this.screenWidth.toString() + "<br />" +
-            "screenMode: " + this.screenMode.toString() + "<br />" +
-            "widthAreaAB: " + this.widthAreaAB.toString() + "<br />" +
-            "widthAB: " + this.widthAB.toString() + "<br />" +
-            "widthC: " + this.widthC.toString() + "<br />" +
-            "lineHeight: " + this.lineHeight.toString() + "<br />" +
-            "fontSize: " + this.fontSize.toString();
-    }
+    public valuesToString = (): string =>
+        `screenWidth: ${this.screenWidth}\r\n` +
+        `screenMode: ${this.screenMode}\r\n` +
+        `widthAreaAB: ${this.widthAreaAB}\r\n` +
+        `widthAB: ${this.widthAB}\r\n` +
+        `widthC: ${this.widthC}\r\n` +
+        `lineHeight: ${this.lineHeight}\r\n` +
+        `fontSize: ${this.fontSize}`;
 }

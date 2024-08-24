@@ -2,9 +2,11 @@ import { DateHelper } from "../helpers/DateHelper.js";
 import { LeaderDataEntry, LeaderSnapshot } from "../models/FuehrrStats.js";
 
 export class FuehrrStatsServer {
+    private _document: Document;
     private _dateHelper: DateHelper;
 
-    constructor(dateHelper: DateHelper) {
+    constructor(document: Document, dateHelper: DateHelper) {
+        this._document = document;
         this._dateHelper = dateHelper;
     }
 
@@ -35,6 +37,12 @@ export class FuehrrStatsServer {
         headers.set('Content-Type', 'application/json')
         headers.set('Accept', 'application/json')
         const request: RequestInfo = new Request(url, { method: 'GET', headers: headers })
+
+        var loadingIndicator = this._document.getElementById("wait");
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "block";
+        }
+
         return fetch(request)
             .then(res => res.json())
             .then(res => { return res as T; })
