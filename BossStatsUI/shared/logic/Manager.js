@@ -1,3 +1,4 @@
+import { Person } from "../models/FuehrrStats.js";
 import { Pages } from "../view/Page.js";
 export class Manager {
     _server;
@@ -5,6 +6,7 @@ export class Manager {
     _companyId;
     _leaderSnapshots;
     _selectedLeaderSnapshotIndex = 0;
+    _personCollection = new Map();
     _backParams;
     constructor(server, page) {
         this._page = page;
@@ -40,8 +42,12 @@ export class Manager {
     }
     ;
     async getLeaderEvolutionPage(personId) {
-        var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
-        return this._page.LeaderEvolution(this._backParams, leaderDataEntries);
+        let person = this._personCollection.get(personId);
+        if (!person) {
+            person = new Person(personId, await this._server.getLeaderDataEntries(personId));
+            this._personCollection.set(personId, person);
+        }
+        return this._page.LeaderEvolution(this._backParams, person.leaderDataEntries);
     }
     ;
 }

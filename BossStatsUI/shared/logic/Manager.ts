@@ -1,4 +1,4 @@
-import { LeaderSnapshot } from "../models/FuehrrStats.js";
+import { LeaderSnapshot, Person } from "../models/FuehrrStats.js";
 import { Page, Pages } from "../view/Page.js";
 import { FuehrrStatsServer } from "./FuehrrStatsServer.js";
 
@@ -8,6 +8,8 @@ export class Manager {
     private _companyId!: string;
     private _leaderSnapshots!: LeaderSnapshot[];
     private _selectedLeaderSnapshotIndex: number = 0;
+    private _personCollection: Map<string, Person> = new Map();
+
     private _backParams!: string;
 
     constructor(server: FuehrrStatsServer, page: Page) {
@@ -47,7 +49,11 @@ export class Manager {
     };
 
     private async getLeaderEvolutionPage(personId: string): Promise<string> {
-        var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
-        return this._page.LeaderEvolution(this._backParams, leaderDataEntries);
+        let person = this._personCollection.get(personId);
+        if (!person) {
+            person = new Person(personId, await this._server.getLeaderDataEntries(personId));
+            this._personCollection.set(personId, person);
+        }
+        return this._page.LeaderEvolution(this._backParams, person.leaderDataEntries);
     };
 }

@@ -27,3 +27,13 @@ export interface Quartiles {
     maximum: number;
     iqr: number;
 }
+
+export class Person {
+    id: string;
+    leaderDataEntries: LeaderDataEntry[];
+
+    constructor(id: string, leaderDataEntries: LeaderDataEntry[]) {
+        this.id = id;
+        this.leaderDataEntries = leaderDataEntries;
+    }
+}
