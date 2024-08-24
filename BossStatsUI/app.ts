@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 document.addEventListener("click", async function (event: Event) {
-    if (event == null || event.target == null) { return; }
+    if (!event || !event.target) { return; }
     let element = event.target as Element;
-    if (element == null) { return; }
+    if (!element || !element.id || !(element.id as string) || (element.id as string).length == 0) { return; }
 
     _pageWithParams = element.id;
     await getHtml();

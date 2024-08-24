@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     await setWidthAndGetHtml();
 });
 document.addEventListener("click", async function (event) {
-    if (event == null || event.target == null) {
+    if (!event || !event.target) {
         return;
     }
     let element = event.target;
-    if (element == null) {
+    if (!element || !element.id || !element.id || element.id.length == 0) {
         return;
     }
     _pageWithParams = element.id;
