@@ -41,10 +41,22 @@ export class FuehrrStatsServer {
         var loadingIndicator = this._document.getElementById("wait");
         if (loadingIndicator) {
             loadingIndicator.style.display = "block";
+            let waitline = this._document.getElementById("waitline");
+            if (waitline) {
+                waitline.style.animation = 'none';
+                void waitline.offsetWidth;
+                waitline.style.animation = 'rotateAnimation 2s linear infinite';
+            }
         }
+
+        //await delay(1000);
 
         return fetch(request)
             .then(res => res.json())
             .then(res => { return res as T; })
     }
 }
+
+//function delay(ms: number): Promise<void> {
+//    return new Promise(resolve => setTimeout(resolve, ms));
+//}
