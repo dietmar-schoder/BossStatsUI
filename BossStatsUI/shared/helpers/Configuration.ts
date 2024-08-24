@@ -41,6 +41,9 @@ export class Configuration {
         this.fontSize = Math.round(this.lineHeight * this.fontSizeFactor);
     }
 
+    public columnWidthAB = (factor: number): number =>
+        Math.round((this.widthAB + this.margin) * factor) - this.margin;
+
     public valuesToString = (): string =>
         `screenWidth: ${this.screenWidth}\r\n` +
         `screenMode: ${this.screenMode}\r\n` +

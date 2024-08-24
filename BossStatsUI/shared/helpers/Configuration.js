@@ -30,6 +30,7 @@ export class Configuration {
         this.lineHeight = this.screenMode == 2 ? this.lineHeightMobile : this.lineHeightPC;
         this.fontSize = Math.round(this.lineHeight * this.fontSizeFactor);
     }
+    columnWidthAB = (factor) => Math.round((this.widthAB + this.margin) * factor) - this.margin;
     valuesToString = () => `screenWidth: ${this.screenWidth}\r\n` +
         `screenMode: ${this.screenMode}\r\n` +
         `widthAreaAB: ${this.widthAreaAB}\r\n` +

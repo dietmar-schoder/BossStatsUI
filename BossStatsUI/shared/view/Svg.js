@@ -47,7 +47,7 @@ export class SvgPanel extends SvgElement {
         this._screenWidth = screenWidth;
     }
     getStartTag = () => `<div width=${this._screenWidth}px><svg viewBox=\"0 0 ${this._screenWidth} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
-    getEndTag = () => `<circle id=\"wait\" style=\"display:none\" cx=\"${this.width - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
+    getEndTag = () => `<circle id=\"wait\" style=\"display:none\" cx=\"${this._screenWidth - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
         `</div></svg>`;
 }
 //export class SvgButton2 extends SvgElement {

@@ -8,6 +8,7 @@ export class Manager {
     private _companyId!: string;
     private _leaderSnapshots!: LeaderSnapshot[];
     private _selectedLeaderSnapshotIndex: number = 0;
+    private _backParams!: string;
 
     constructor(server: FuehrrStatsServer, page: Page) {
         this._page = page;
@@ -31,6 +32,7 @@ export class Manager {
     private async getLeaderSnapshotOneToOnesPage(paramsParts: string[]): Promise<string> {
         this._companyId = paramsParts[0];
         this._selectedLeaderSnapshotIndex = Number(paramsParts[1]);
+        this._backParams = `${this._companyId};${this._selectedLeaderSnapshotIndex}`;
 
         if (this._leaderSnapshots == null) {
             this._leaderSnapshots = await this._server.getLeaderSnapshots(this._companyId);
@@ -46,6 +48,6 @@ export class Manager {
 
     private async getLeaderEvolutionPage(personId: string): Promise<string> {
         var leaderDataEntries = await this._server.getLeaderDataEntries(personId);
-        return personId; // this._pages.LeaderEvolution(width, _leaderSnapshotId, leaderDataEntries);
+        return this._page.LeaderEvolution(this._backParams, leaderDataEntries);
     };
 }

@@ -63,7 +63,7 @@ export class SvgPanel extends SvgElement {
         `<div width=${this._screenWidth}px><svg viewBox=\"0 0 ${this._screenWidth} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
 
     public getEndTag = () =>
-        `<circle id=\"wait\" style=\"display:none\" cx=\"${this.width - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
+        `<circle id=\"wait\" style=\"display:none\" cx=\"${this._screenWidth - 18}\" cy=\"18\" r=\"12\" fill=\"${black}\" stroke-width=\"0\" />` +
         `</div></svg>`;
 }
 
