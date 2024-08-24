@@ -80,6 +80,14 @@ export class Page {
 //                .add(new SvgQuartile(entry.oneToOneQuartiles, 660));
 //        });
 
+        leaderDataEntries.forEach(entry => {
+            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
+                new SvgText(this._dateHelper.toDate(entry.date), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100")
+            //    ,
+            //    new SvgText(entry.level.toString(), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100")
+            ))
+        });
+
         return this._viewHelper.svgHtml(
             new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(
                 new SvgElement().addList(tableAB))
