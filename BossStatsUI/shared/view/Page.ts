@@ -63,7 +63,7 @@ export class Page {
         const tableAB: SvgElement[] = [];
         const backButtonWidth = this._configuration.columnWidthAB(0.25);
         const nameWidth = this._configuration.columnWidthAB(0.75);
-        const leaderName = leaderDataEntries[0].name; // ? what if there is no first entry?
+        const leaderName = leaderDataEntries[0].name;
 
         tableAB.push(new SvgElement(true).add(
             new SvgButton("Back", backButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", Pages.LeaderSnapshotOneToOnes, backParams),
