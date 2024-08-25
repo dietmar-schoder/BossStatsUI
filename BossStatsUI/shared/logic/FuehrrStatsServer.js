@@ -41,9 +41,9 @@ export class FuehrrStatsServer {
             hourGlass.style.display = "block";
             let rotatingLine = this._document.getElementById("rotatingLine");
             if (rotatingLine) {
-                rotatingLine.style.animation = 'none';
+                rotatingLine.style.animation = "none";
                 void rotatingLine.offsetWidth;
-                rotatingLine.style.animation = 'rotateAnimation 2s linear infinite';
+                rotatingLine.style.animation = "rotateAnimation 2s linear infinite";
             }
         }
     }
