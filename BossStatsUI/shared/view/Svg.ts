@@ -9,7 +9,6 @@ var q2Bad = "rgb(235, 15, 15)";
 var q2Medium = "rgb(235,171,15)";
 var q2Good = "rgb(15,235,15)";
 var lineHeight = 0;
-var margin2 = 2;
 
 export class SvgElement {
     public children: SvgElement[] = [];
@@ -39,11 +38,6 @@ export class SvgElement {
         return this;
     }
 
-    sub(element: SvgElement): SvgElement {
-        this.children.push(element);
-        return element;
-    }
-
     public getStartTag = () => this.startTag;
 
     public getContent = () => this.content;
@@ -60,13 +54,13 @@ export class SvgPanel extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<div width=${this._screenWidth}px><svg viewBox=\"0 0 ${this._screenWidth} ${this.height}\" style=\"display:block;\" xmlns=\"http://www.w3.org/2000/svg\">`;
+        `<div width=${this._screenWidth}px><svg viewBox="0 0 ${this._screenWidth} ${this.height}" style="display:block;" xmlns="http://www.w3.org/2000/svg">`;
 
     public getEndTag = () =>
-        `<g id="wait" style="display:none">` +
-        `<rect x="${this._screenWidth - 36}" y=\"0\" width=\"36\" height=\"36\" fill="white" stroke-width="0" />` +
+        `<g id="hourGlass" style="display:none">` +
+        `<rect x="${this._screenWidth - 36}" y="0" width="36" height="36" fill="white" stroke-width="0" />` +
         `<circle cx="${this._screenWidth - 18}" cy="18" r="12" fill="${black}" stroke-width="0" />` +
-        `<line id="waitline" x1="${this._screenWidth - 18}" y1="6" x2="${this._screenWidth - 18}" y2="18" stroke="white" stroke-width="1"` +
+        `<line id="rotatingLine" x1="${this._screenWidth - 18}" y1="6" x2="${this._screenWidth - 18}" y2="18" stroke="white" stroke-width="1"` +
         ` style="transform-origin: ${this._screenWidth - 18}px 18px;" />` +
         `</g></div></svg>`;
 }
@@ -108,12 +102,12 @@ export class SvgButton extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<rect x=\"${this.x}\" y=\"${this.y}\" rx="4" ry="4" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" text-anchor="middle" x=\"${this.x + this.width / 2}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#FFFFFF\">`;
+        `<rect x="${this.x}" y="${this.y}" rx="4" ry="4" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
+        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#FFFFFF">`;
 
     public getEndTag = () =>
         `</text>` +
-        `<rect id=\"${this.action}|${this.params}\" style= "\cursor:pointer\" x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"transparent\" stroke-width=\"0\" />`;
+        `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />`;
 }
 
 export class SvgTextCentered extends SvgElement {
@@ -132,8 +126,8 @@ export class SvgTextCentered extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" text-anchor="middle" x=\"${this.x + this.width / 2}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
+        `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
+        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
 
     public getEndTag = () =>
         `</text>`;
@@ -155,8 +149,8 @@ export class SvgText extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<rect x=\"${this.x}\" y=\"${this.y}\" width=\"${this.width}\" height=\"${this.height}\" fill=\"#${this.background}\" stroke-width=\"0\" />` +
-        `<text alignment-baseline=\"middle\" x=\"${this.x + 12}\" y=\"${this.y + this.height / 2 + 1}\" font-size="${this.fontSize}" fill=\"#${this.colour}\">`;
+        `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
+        `<text alignment-baseline="middle" x="${this.x + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
 
     public getEndTag = () =>
         `</text>`;
@@ -188,11 +182,10 @@ export class SvgQuartile extends SvgElement {
         let colourQ3 = this._quartiles.q3 > 2.66 ? qGood : this._quartiles.q3 > 1.33 ? qMedium : qBad;
         let colourMed = this._quartiles.median > 2.66 ? q2Good : this._quartiles.median > 1.33 ? q2Medium : q2Bad;
 
-        return `
-            <rect x=\"${this.x + min}\" y=\"${this.y}\" width=\"${w1}\" height=\"${this.height}\" fill=\"${colourMin}\" stroke-width=\"0\" />
-            <rect x=\"${this.x + q1}\" y=\"${this.y}\" width=\"${w2}\" height=\"${this.height}\" fill=\"${colourQ1}\" stroke-width=\"0\" />
-            <rect x=\"${this.x + q3}\" y=\"${this.y}\" width=\"${w3}\" height=\"${this.height}\" fill=\"${colourQ3}\" stroke-width=\"0\" />
-            <rect x=\"${this.x + med}\" y=\"${this.y - 2}\" width=\"${2}\" height=\"${this.height + 4}\" fill=\"${colourMed}\" stroke-width=\"0\" />`
+        return `<rect x="${this.x + min}" y="${this.y}" width="${w1}" height="${this.height}" fill="${colourMin}" stroke-width="0" />
+            <rect x="${this.x + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colourQ1}" stroke-width="0" />
+            <rect x="${this.x + q3}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colourQ3}" stroke-width="0" />
+            <rect x="${this.x + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`
             //+ `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">
             //${this._quartiles.minimum} ${this._quartiles.q1} ${this._quartiles.median} ${this._quartiles.q3} ${this._quartiles.maximum} 
             //</text>`
