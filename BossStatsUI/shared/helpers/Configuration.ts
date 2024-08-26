@@ -3,8 +3,8 @@ export class Configuration {
 
     readonly mobileWidthMax: number = 768;
     readonly desktopWidthMax: number = 1440;
-    readonly lineHeightPC: number = 36;
-    readonly lineHeightMobile: number = 48;
+    readonly lineHeightPC: number = 32;
+    readonly lineHeightMobile: number = 40;
     readonly fontSizeFactor: number = 14 / 24;
     public readonly margin: number = this.lineHeightPC / 3;
     public readonly margin2: number = this.margin / 2;

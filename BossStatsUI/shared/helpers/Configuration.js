@@ -2,8 +2,8 @@ export class Configuration {
     _document;
     mobileWidthMax = 768;
     desktopWidthMax = 1440;
-    lineHeightPC = 36;
-    lineHeightMobile = 48;
+    lineHeightPC = 32;
+    lineHeightMobile = 40;
     fontSizeFactor = 14 / 24;
     margin = this.lineHeightPC / 3;
     margin2 = this.margin / 2;

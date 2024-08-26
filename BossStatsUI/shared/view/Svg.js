@@ -92,7 +92,7 @@ export class SvgTreeElementButton extends SvgButton {
         this.indent = indent;
     }
     getStartTag = () => `<rect x="${this.x + this.indent}" y="${this.y}" rx="4" ry="4" width="${this.width - this.indent}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" x="${this.x + this.indent + this.height / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="white">`;
+        `<text alignment-baseline="middle" x="${this.x + this.indent + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="white">`;
     getEndTag = () => `</text>` +
         `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />`;
 }
