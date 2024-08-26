@@ -131,30 +131,32 @@ export class SvgText extends SvgElement {
     getEndTag = () => `</text>`;
 }
 export class SvgQuartile extends SvgElement {
-    _quartiles;
-    constructor(quartiles, width, height) {
+    widthPlusMargin;
+    quartiles;
+    constructor(height, widthPlusMargin, quartiles) {
         super();
-        this.width = width;
         this.height = height;
-        this._quartiles = quartiles;
+        this.widthPlusMargin = widthPlusMargin;
+        this.quartiles = quartiles;
     }
     getStartTag = () => {
-        let factor = 600 / 4;
-        let min = this._quartiles.minimum * factor;
-        let q1 = this._quartiles.q1 * factor;
-        let q3 = this._quartiles.q3 * factor;
-        let max = this._quartiles.maximum * factor;
+        let factor = Math.round(this.widthPlusMargin / 5);
+        let offsetX = 18;
+        let min = this.quartiles.minimum * factor;
+        let q1 = this.quartiles.q1 * factor;
+        let q3 = this.quartiles.q3 * factor;
+        let max = this.quartiles.maximum * factor;
         let w1 = q1 - min > 1 ? q1 - min - 1 : 2;
         let w2 = q3 - q1 > 1 ? q3 - q1 - 1 : 2;
         let w3 = max - q3 > 1 ? max - q3 : 0;
-        let med = this._quartiles.median * factor;
-        let colourMin = this._quartiles.minimum > 2.66 ? qGood : this._quartiles.minimum > 1.33 ? qMedium : qBad;
-        let colourQ1 = this._quartiles.q1 > 2.66 ? qGood : this._quartiles.q1 > 1.33 ? qMedium : qBad;
-        let colourQ3 = this._quartiles.q3 > 2.66 ? qGood : this._quartiles.q3 > 1.33 ? qMedium : qBad;
-        let colourMed = this._quartiles.median > 2.66 ? q2Good : this._quartiles.median > 1.33 ? q2Medium : q2Bad;
-        return `<rect x="${this.x + min}" y="${this.y}" width="${w1}" height="${this.height}" fill="${colourMin}" stroke-width="0" />
-            <rect x="${this.x + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colourQ1}" stroke-width="0" />
-            <rect x="${this.x + q3}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colourQ3}" stroke-width="0" />
-            <rect x="${this.x + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`;
+        let med = this.quartiles.median * factor;
+        let colourMin = this.quartiles.minimum > 2.66 ? qGood : this.quartiles.minimum > 1.33 ? qMedium : qBad;
+        let colourQ1 = this.quartiles.q1 > 2.66 ? qGood : this.quartiles.q1 > 1.33 ? qMedium : qBad;
+        let colourQ3 = this.quartiles.q3 > 2.66 ? qGood : this.quartiles.q3 > 1.33 ? qMedium : qBad;
+        let colourMed = this.quartiles.median > 2.66 ? q2Good : this.quartiles.median > 1.33 ? q2Medium : q2Bad;
+        return `<rect x="${this.x + offsetX + min}" y="${this.y}" width="${w1}" height="${this.height}" fill="${colourMin}" stroke-width="0" />
+            <rect x="${this.x + offsetX + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colourQ1}" stroke-width="0" />
+            <rect x="${this.x + offsetX + q3}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colourQ3}" stroke-width="0" />
+            <rect x="${this.x + offsetX + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`;
     };
 }
