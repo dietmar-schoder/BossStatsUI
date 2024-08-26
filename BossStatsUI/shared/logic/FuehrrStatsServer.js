@@ -30,7 +30,7 @@ export class FuehrrStatsServer {
         headers.set('Accept', 'application/json');
         const request = new Request(url, { method: 'GET', headers: headers });
         this.startHourGlass();
-        //await delay(1000);
+        await delay(1000);
         return fetch(request)
             .then(res => res.json())
             .then(res => { return res; });
@@ -48,6 +48,6 @@ export class FuehrrStatsServer {
         }
     }
 }
-//function delay(ms: number): Promise<void> {
-//    return new Promise(resolve => setTimeout(resolve, ms));
-//}
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

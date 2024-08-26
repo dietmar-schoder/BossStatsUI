@@ -17,7 +17,7 @@ export class Page {
     Start() {
         const tableAB = [];
         tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTextCentered("fuehrr.com Reports", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")));
-        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
+        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
     }
     LeaderSnapshotOneToOnes(companyId, leaderSnapshot, selectedIndex, prevIndex, nextIndex) {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
@@ -35,7 +35,7 @@ export class Page {
             let indent = entry.level * this._configuration.lineHeight;
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, entry.personId, indent), new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)));
         });
-        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
+        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
         // TEST areas A, B, C
         //const tableC: SvgElement[] = []; // area C
         //const dataEntriesC: string[] = ["Area C Line 1", "Area C Line 2", "Area C Line 3", "Area C Line 4"]; // area C
@@ -59,6 +59,6 @@ export class Page {
         leaderDataEntries.forEach(entry => {
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"), new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)));
         });
-        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
+        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
     }
 }

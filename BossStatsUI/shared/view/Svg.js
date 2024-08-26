@@ -36,17 +36,25 @@ export class SvgElement {
     getEndTag = () => this.endTag;
 }
 export class SvgPanel extends SvgElement {
-    _screenWidth;
-    constructor(screenWidth, isHorizontal = false) {
+    screenWidth;
+    hourGlassRadius;
+    hourGlassSize;
+    hourGlassSize2;
+    hourGlassCentreX;
+    constructor(screenWidth, lineHeight, isHorizontal = false) {
         super(isHorizontal);
-        this._screenWidth = screenWidth;
+        this.screenWidth = screenWidth;
+        this.hourGlassRadius = lineHeight / 2;
+        this.hourGlassSize = lineHeight + 12;
+        this.hourGlassSize2 = this.hourGlassSize / 2;
+        this.hourGlassCentreX = this.screenWidth - this.hourGlassSize2;
     }
-    getStartTag = () => `<div width=${this._screenWidth}px><svg viewBox="0 0 ${this._screenWidth} ${this.height}" style="display:block;" xmlns="http://www.w3.org/2000/svg">`;
+    getStartTag = () => `<div width=${this.screenWidth}px><svg viewBox="0 0 ${this.screenWidth} ${this.height}" style="display:block;" xmlns="http://www.w3.org/2000/svg">`;
     getEndTag = () => `<g id="hourGlass" style="display:none">` +
-        `<rect x="${this._screenWidth - 36}" y="0" width="36" height="36" fill="white" stroke-width="0" />` +
-        `<circle cx="${this._screenWidth - 18}" cy="18" r="12" fill="${black}" stroke-width="0" />` +
-        `<line id="rotatingLine" x1="${this._screenWidth - 18}" y1="6" x2="${this._screenWidth - 18}" y2="18" stroke="white" stroke-width="1"` +
-        ` style="transform-origin: ${this._screenWidth - 18}px 18px;" />` +
+        `<rect x="${this.screenWidth - this.hourGlassSize}" y="0" width="${this.hourGlassSize}" height="${this.hourGlassSize}" fill="#FFFFFF" stroke-width="0" />` +
+        `<circle cx="${this.hourGlassCentreX}" cy="${this.hourGlassSize2}" r="${this.hourGlassRadius}" fill="${black}" stroke-width="0" />` +
+        `<line id="rotatingLine" x1="${this.hourGlassCentreX}" y1="6" x2="${this.hourGlassCentreX}" y2="${this.hourGlassSize2}" stroke="white" stroke-width="1"` +
+        ` style="transform-origin: ${this.hourGlassCentreX}px ${this.hourGlassSize2}px;" />` +
         `</g></div></svg>`;
 }
 //export class SvgButton2 extends SvgElement {

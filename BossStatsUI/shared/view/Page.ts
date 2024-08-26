@@ -28,7 +28,7 @@ export class Page {
             new SvgTextCentered("fuehrr.com Reports", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")));
 
         return this._viewHelper.svgHtml(
-            new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(
+            new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(
                 new SvgElement().addList(tableAB))
         );
     }
@@ -70,7 +70,7 @@ export class Page {
         });
 
         return this._viewHelper.svgHtml(
-            new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(
+            new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(
                 new SvgElement().addList(tableAB))
         );
 
@@ -117,7 +117,7 @@ export class Page {
         });
 
         return this._viewHelper.svgHtml(
-            new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(
+            new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(
                 new SvgElement().addList(tableAB))
         );
     }
