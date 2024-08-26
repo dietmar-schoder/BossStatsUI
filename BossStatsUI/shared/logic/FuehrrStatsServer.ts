@@ -61,6 +61,6 @@ export class FuehrrStatsServer {
     }
 }
 
-//function delay(ms: number): Promise<void> {
-//    return new Promise(resolve => setTimeout(resolve, ms));
-//}
+function delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

@@ -1,8 +1,9 @@
 import { SvgElement, SvgButton, SvgTextCentered, SvgText, SvgPanel, SvgTreeElementButton, SvgQuartile } from "./Svg.js";
 export var Pages;
 (function (Pages) {
-    Pages[Pages["LeaderSnapshotOneToOnes"] = 0] = "LeaderSnapshotOneToOnes";
-    Pages[Pages["LeaderEvolution"] = 1] = "LeaderEvolution";
+    Pages[Pages["Start"] = 0] = "Start";
+    Pages[Pages["LeaderSnapshotOneToOnes"] = 1] = "LeaderSnapshotOneToOnes";
+    Pages[Pages["LeaderEvolution"] = 2] = "LeaderEvolution";
 })(Pages || (Pages = {}));
 export class Page {
     _configuration;
@@ -12,6 +13,11 @@ export class Page {
         this._dateHelper = dateHelper;
         this._viewHelper = viewHelper;
         this._configuration = configuration;
+    }
+    Start() {
+        const tableAB = [];
+        tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTextCentered("fuehrr.com Reports", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")));
+        return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
     }
     LeaderSnapshotOneToOnes(companyId, leaderSnapshot, prevIndex, nextIndex) {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);

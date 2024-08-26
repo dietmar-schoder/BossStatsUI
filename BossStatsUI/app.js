@@ -12,10 +12,16 @@ const _viewHelper = new ViewHelper(_configuration);
 const _pages = new Page(_configuration, _dateHelper, _viewHelper);
 const _manager = new Manager(_server, _pages);
 const _companyId = new URLSearchParams(window.location.search).get('id') ?? "";
-var _pageWithParams = `${Pages.LeaderSnapshotOneToOnes}|${_companyId};0`; // page number | company id ; selected snapshot index
+var _pageWithParams = `${Pages.Start}|`;
 var _resizeTimeout;
 document.addEventListener("DOMContentLoaded", async function () {
+    console.time('Pages.Start');
     await setWidthAndGetHtml();
+    console.timeEnd('Pages.Start');
+    console.time('Pages.LeaderSnapshotOneToOnes');
+    _pageWithParams = `${Pages.LeaderSnapshotOneToOnes}|${_companyId};0`; // page number | company id ; selected snapshot index
+    await getHtml();
+    console.timeEnd('Pages.LeaderSnapshotOneToOnes');
 });
 document.addEventListener("click", async function (event) {
     if (!event || !event.target) {
@@ -40,7 +46,7 @@ async function setWidthAndGetHtml() {
     await getHtml();
 }
 async function getHtml() {
-    console.time('_loadPage.getHtml');
+    //console.time('app.getHtml');
     document.body.innerHTML = await _manager.getHtml(_pageWithParams.split("|"));
-    console.timeEnd('_loadPage.getHtml');
+    //    console.timeEnd('app.getHtml');
 }

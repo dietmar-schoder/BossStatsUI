@@ -5,6 +5,7 @@ import { SvgElement, SvgButton, SvgTextCentered, SvgText, SvgPanel, SvgTreeEleme
 import { ViewHelper } from "./UICalculator.js";
 
 export enum Pages {
+    Start,
     LeaderSnapshotOneToOnes,
     LeaderEvolution
 }
@@ -19,6 +20,19 @@ export class Page {
         this._viewHelper = viewHelper;
         this._configuration = configuration;
     }
+
+    public Start(): string {
+        const tableAB: SvgElement[] = [];
+
+        tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
+            new SvgTextCentered("fuehrr.com Reports", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")));
+
+        return this._viewHelper.svgHtml(
+            new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(
+                new SvgElement().addList(tableAB))
+        );
+    }
+
 
     public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, prevIndex: number, nextIndex: number): string {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
@@ -42,7 +56,7 @@ export class Page {
                 new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
                 new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
                 new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"))
-            )
+        )
         );
 
         leaderDataEntries.forEach(entry => {
@@ -51,7 +65,7 @@ export class Page {
                 new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, entry.personId,
                     indent),
                 new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)))
-            });
+        });
 
         return this._viewHelper.svgHtml(
             new SvgPanel(this._configuration.screenWidth, this._configuration.isHorizontalMain).add(

@@ -23,13 +23,18 @@ export class Manager {
         let page = Number(pageWithParamsParts[0]);
         let params = pageWithParamsParts[1];
 
+        if (page == Pages.Start) { return this.getStartPage(); }
         if (page == Pages.LeaderSnapshotOneToOnes) { return await this.getLeaderSnapshotOneToOnesPage(params.split(";")); }
         if (page == Pages.LeaderEvolution) { return await this.getLeaderEvolutionPage(params); }
 
         return "page not found";
     }
 
-    // Get data from server and then html from page
+    // Get data from server (if applicable) and then html from page
+
+    private getStartPage(): string {
+        return this._page.Start();
+    };
 
     private async getLeaderSnapshotOneToOnesPage(paramsParts: string[]): Promise<string> {
         this._companyId = paramsParts[0];

@@ -16,6 +16,9 @@ export class Manager {
     async getHtml(pageWithParamsParts) {
         let page = Number(pageWithParamsParts[0]);
         let params = pageWithParamsParts[1];
+        if (page == Pages.Start) {
+            return this.getStartPage();
+        }
         if (page == Pages.LeaderSnapshotOneToOnes) {
             return await this.getLeaderSnapshotOneToOnesPage(params.split(";"));
         }
@@ -24,7 +27,11 @@ export class Manager {
         }
         return "page not found";
     }
-    // Get data from server and then html from page
+    // Get data from server (if applicable) and then html from page
+    getStartPage() {
+        return this._page.Start();
+    }
+    ;
     async getLeaderSnapshotOneToOnesPage(paramsParts) {
         this._companyId = paramsParts[0];
         this._selectedLeaderSnapshotIndex = Number(paramsParts[1]);
