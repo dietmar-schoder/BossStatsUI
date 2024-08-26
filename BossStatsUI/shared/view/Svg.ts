@@ -85,29 +85,33 @@ export class SvgPanel extends SvgElement {
 //}
 
 export class SvgButton extends SvgElement {
-    public fontSize: number;
-    public background: string;
-    public action: number;
-    public params: string;
+    protected fontSize: number;
+    protected background: string;
+    protected fontColour: string;
+    protected isEnabled: boolean;
+    protected action: number;
+    protected params: string;
 
-    constructor(caption: string, width: number, height: number, fontSize: number, background: string, action: number, params: string) {
+    constructor(caption: string, width: number, height: number, fontSize: number, background: string, isEnabled: boolean, action: number, params: string) {
         super();
         this.content = caption;
         this.width = width;
         this.height = height;
         this.fontSize = fontSize;
-        this.background = background;
+        this.background = isEnabled ? background : "999999";
+        this.fontColour = isEnabled ? "FFFFFF" : "CCCCCC";
+        this.isEnabled = isEnabled;
         this.action = action;
         this.params = params;
     }
 
     public getStartTag = () =>
         `<rect x="${this.x}" y="${this.y}" rx="4" ry="4" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#FFFFFF">`;
+        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.fontColour}">`;
 
     public getEndTag = () =>
         `</text>` +
-        `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />`;
+        (this.isEnabled ? `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />` : ``);
 }
 
 export class SvgTreeElementButton extends SvgButton {
@@ -115,7 +119,7 @@ export class SvgTreeElementButton extends SvgButton {
 
     constructor(caption: string, width: number, height: number, fontSize: number, background: string, action: number, params: string,
         indent: number) {
-        super(caption, width, height, fontSize, background, action, params);
+        super(caption, width, height, fontSize, background, true, action, params);
         this.indent = indent;
     }
 

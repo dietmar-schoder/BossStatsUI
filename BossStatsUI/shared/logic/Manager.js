@@ -45,7 +45,7 @@ export class Manager {
         }
         let prevIndex = this._selectedLeaderSnapshotIndex + (this._selectedLeaderSnapshotIndex < this._leaderSnapshots.length - 1 ? 1 : 0);
         let nextIndex = this._selectedLeaderSnapshotIndex - (this._selectedLeaderSnapshotIndex > 0 ? 1 : 0);
-        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, prevIndex, nextIndex);
+        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, this._selectedLeaderSnapshotIndex, prevIndex, nextIndex);
     }
     ;
     async getLeaderEvolutionPage(personId) {

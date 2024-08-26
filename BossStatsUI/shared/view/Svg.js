@@ -68,27 +68,31 @@ export class SvgPanel extends SvgElement {
 export class SvgButton extends SvgElement {
     fontSize;
     background;
+    fontColour;
+    isEnabled;
     action;
     params;
-    constructor(caption, width, height, fontSize, background, action, params) {
+    constructor(caption, width, height, fontSize, background, isEnabled, action, params) {
         super();
         this.content = caption;
         this.width = width;
         this.height = height;
         this.fontSize = fontSize;
-        this.background = background;
+        this.background = isEnabled ? background : "999999";
+        this.fontColour = isEnabled ? "FFFFFF" : "CCCCCC";
+        this.isEnabled = isEnabled;
         this.action = action;
         this.params = params;
     }
     getStartTag = () => `<rect x="${this.x}" y="${this.y}" rx="4" ry="4" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#FFFFFF">`;
+        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.fontColour}">`;
     getEndTag = () => `</text>` +
-        `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />`;
+        (this.isEnabled ? `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />` : ``);
 }
 export class SvgTreeElementButton extends SvgButton {
     indent;
     constructor(caption, width, height, fontSize, background, action, params, indent) {
-        super(caption, width, height, fontSize, background, action, params);
+        super(caption, width, height, fontSize, background, true, action, params);
         this.indent = indent;
     }
     getStartTag = () => `<rect x="${this.x + this.indent}" y="${this.y}" rx="4" ry="4" width="${this.width - this.indent}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
