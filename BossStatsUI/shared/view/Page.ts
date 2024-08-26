@@ -96,7 +96,7 @@ export class Page {
 
         leaderDataEntries.forEach(entry => {
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
-                new SvgText(this._dateHelper.toDate(entry.date), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "3D7A6E", "FAC100"),
+                new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
                 new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)))
         });
 
