@@ -5,9 +5,9 @@ export class Manager {
     _page;
     _companyId;
     _leaderSnapshots;
+    _menuSelection = 0;
     _selectedLeaderSnapshotIndex = 0;
     _personCollection = new Map();
-    _backParams;
     constructor(server, page) {
         this._page = page;
         this._server = server;
@@ -23,7 +23,7 @@ export class Manager {
             return await this.getLeaderSnapshotOneToOnesPage(params.split(";"));
         }
         if (page == Pages.LeaderEvolution) {
-            return await this.getLeaderEvolutionPage(params);
+            return await this.getLeaderEvolutionPage(params.split(";"));
         }
         return "page not found";
     }
@@ -34,8 +34,9 @@ export class Manager {
     ;
     async getLeaderSnapshotOneToOnesPage(paramsParts) {
         this._companyId = paramsParts[0];
-        this._selectedLeaderSnapshotIndex = Number(paramsParts[1]);
-        this._backParams = `${this._companyId};${this._selectedLeaderSnapshotIndex}`;
+        this._menuSelection = Number(paramsParts[1]);
+        this._selectedLeaderSnapshotIndex = Number(paramsParts[2]);
+        const backParams = `${this._companyId};${this._menuSelection};${this._selectedLeaderSnapshotIndex}`;
         if (this._leaderSnapshots == null) {
             this._leaderSnapshots = await this._server.getLeaderSnapshots(this._companyId);
         }
@@ -45,16 +46,18 @@ export class Manager {
         }
         let prevIndex = this._selectedLeaderSnapshotIndex + (this._selectedLeaderSnapshotIndex < this._leaderSnapshots.length - 1 ? 1 : 0);
         let nextIndex = this._selectedLeaderSnapshotIndex - (this._selectedLeaderSnapshotIndex > 0 ? 1 : 0);
-        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, this._selectedLeaderSnapshotIndex, prevIndex, nextIndex);
+        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, this._menuSelection, this._selectedLeaderSnapshotIndex, prevIndex, nextIndex);
     }
     ;
-    async getLeaderEvolutionPage(personId) {
+    async getLeaderEvolutionPage(paramsParts) {
+        this._menuSelection = Number(paramsParts[0]);
+        let personId = paramsParts[1];
         let person = this._personCollection.get(personId);
         if (!person) {
             person = new Person(personId, await this._server.getLeaderDataEntries(personId));
             this._personCollection.set(personId, person);
         }
-        return this._page.LeaderEvolution(this._backParams, person.leaderDataEntries);
+        return this._page.LeaderEvolution(this._companyId, this._menuSelection, this._selectedLeaderSnapshotIndex, personId, person.leaderDataEntries);
     }
     ;
 }

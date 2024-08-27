@@ -33,25 +33,31 @@ export class Page {
         );
     }
 
-    public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, selectedIndex: number, prevIndex: number, nextIndex: number): string {
+    public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, menuSelection: number, selectedIndex: number, prevIndex: number, nextIndex: number): string {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
         const leaderDataEntries = leaderSnapshot.leaderDataEntries;
-        const prevPageParams = `${companyId};${prevIndex}`;
-        const nextPageParams = `${companyId};${nextIndex}`;
+        const menu1Params = `${companyId};0;${selectedIndex}`;
+        const menu2Params = `${companyId};1;${selectedIndex}`;
+        const menu3Params = `${companyId};2;${selectedIndex}`;
+        const prevPageParams = `${companyId};${menuSelection};${prevIndex}`;
+        const nextPageParams = `${companyId};${menuSelection};${nextIndex}`;
         const tableAB: SvgElement[] = [];
         const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
         const prevNextButtonWidth = this._configuration.columnWidthAB(0.25);
         const menuDateWidth = this._configuration.columnWidthAB(0.5);
         const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
+        const canMenu1 = menuSelection != 0;
+        const canMenu2 = menuSelection != 1;
+        const canMenu3 = menuSelection != 2;
         const canPrev = selectedIndex < leaderDataEntries.length - 1;
         const canNext = selectedIndex > 0;
 
         tableAB.push(
             new SvgElement(true).add(
                 new SvgElement(true).add(
-                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, prevPageParams),
-                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, prevPageParams),
-                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, nextPageParams)
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderSnapshotOneToOnes, menu1Params),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderSnapshotOneToOnes, menu2Params),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderSnapshotOneToOnes, menu3Params)
                 )
             ),
             new SvgElement(this._configuration.isHorizontalAB).add(
@@ -72,8 +78,9 @@ export class Page {
 
         leaderDataEntries.forEach(entry => {
             let indent = entry.level * this._configuration.lineHeight;
+            let params = `${menuSelection};${entry.personId}`;
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
-                new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, entry.personId,
+                new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, params,
                     indent),
                 new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)))
         });
@@ -98,20 +105,27 @@ export class Page {
         //);
     }
 
-    public LeaderEvolution(backParams: string, leaderDataEntries: LeaderDataEntry[]): string {
+    public LeaderEvolution(companyId: string, menuSelection: number, snapshotSelection: number, personId: string, leaderDataEntries: LeaderDataEntry[]): string {
         const tableAB: SvgElement[] = [];
         const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
         const backButtonWidth = this._configuration.columnWidthAB(0.25);
         const nameWidth = this._configuration.columnWidthAB(0.75);
         const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
         const leaderName = leaderDataEntries[0].name;
+        const backParams = `${companyId};${menuSelection};${snapshotSelection}`;
+        const menu1Params = `0;${personId}`;
+        const menu2Params = `1;${personId}`;
+        const menu3Params = `2;${personId}`;
+        const canMenu1 = menuSelection != 0;
+        const canMenu2 = menuSelection != 1;
+        const canMenu3 = menuSelection != 2;
 
         tableAB.push(
             new SvgElement(true).add(
                 new SvgElement(true).add(
-                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, ""),
-                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, ""),
-                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, "")
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderEvolution, menu1Params),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderEvolution, menu2Params),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderEvolution, menu3Params)
                 )
             ),
             new SvgElement(this._configuration.isHorizontalAB).add(

@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     await setWidthAndGetHtml();
     console.timeEnd('Pages.Start');
     console.time('Pages.LeaderSnapshotOneToOnes');
-    _pageWithParams = `${Pages.LeaderSnapshotOneToOnes}|${_companyId};0`; // page number | company id ; selected snapshot index
+    _pageWithParams = `${Pages.LeaderSnapshotOneToOnes}|${_companyId};0;0`; // page number | company id ; menu selection ; selected snapshot index
     await getHtml();
     console.timeEnd('Pages.LeaderSnapshotOneToOnes');
 });
