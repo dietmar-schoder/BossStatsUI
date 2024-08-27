@@ -33,32 +33,41 @@ export class Page {
         );
     }
 
-
     public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, selectedIndex: number, prevIndex: number, nextIndex: number): string {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
         const leaderDataEntries = leaderSnapshot.leaderDataEntries;
         const prevPageParams = `${companyId};${prevIndex}`;
         const nextPageParams = `${companyId};${nextIndex}`;
         const tableAB: SvgElement[] = [];
-        const menuButtonWidth = this._configuration.columnWidthAB(0.25);
+        const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
+        const prevNextButtonWidth = this._configuration.columnWidthAB(0.25);
         const menuDateWidth = this._configuration.columnWidthAB(0.5);
         const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
         const canPrev = selectedIndex < leaderDataEntries.length - 1;
         const canNext = selectedIndex > 0;
 
-        tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
+        tableAB.push(
             new SvgElement(true).add(
-                new SvgButton("Prev", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canPrev, Pages.LeaderSnapshotOneToOnes, prevPageParams),
-                new SvgTextCentered(formattedDate, menuDateWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF"),
-                new SvgButton("Next", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canNext, Pages.LeaderSnapshotOneToOnes, nextPageParams)
+                new SvgElement(true).add(
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, prevPageParams),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, prevPageParams),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, nextPageParams)
+                )
             ),
-            new SvgElement(true).add(
-                new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"))
-        )
+            new SvgElement(this._configuration.isHorizontalAB).add(
+                new SvgElement(true).add(
+                    new SvgButton("Prev", prevNextButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canPrev, Pages.LeaderSnapshotOneToOnes, prevPageParams),
+                    new SvgTextCentered(formattedDate, menuDateWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF"),
+                    new SvgButton("Next", prevNextButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canNext, Pages.LeaderSnapshotOneToOnes, nextPageParams)
+                ),
+                new SvgElement(true).add(
+                    new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF")
+                )
+            )
         );
 
         leaderDataEntries.forEach(entry => {
@@ -91,22 +100,32 @@ export class Page {
 
     public LeaderEvolution(backParams: string, leaderDataEntries: LeaderDataEntry[]): string {
         const tableAB: SvgElement[] = [];
+        const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
         const backButtonWidth = this._configuration.columnWidthAB(0.25);
         const nameWidth = this._configuration.columnWidthAB(0.75);
         const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
         const leaderName = leaderDataEntries[0].name;
 
-        tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
+        tableAB.push(
             new SvgElement(true).add(
-                new SvgButton("Back", backButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, backParams),
-                new SvgTextCentered(leaderName, nameWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")
+                new SvgElement(true).add(
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, ""),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, ""),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, "")
+                )
             ),
-            new SvgElement(true).add(
-                new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"))
+            new SvgElement(this._configuration.isHorizontalAB).add(
+                new SvgElement(true).add(
+                    new SvgButton("Back", backButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, backParams),
+                    new SvgTextCentered(leaderName, nameWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")
+                ),
+                new SvgElement(true).add(
+                    new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
+                    new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF")
+                )
             )
         );
 
