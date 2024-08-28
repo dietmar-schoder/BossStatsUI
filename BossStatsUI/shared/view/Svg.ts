@@ -198,6 +198,8 @@ export class SvgQuartile extends SvgElement {
     }
 
     public getStartTag = () => {
+        if (this.quartiles.n == 0) { return ""; }
+
         let factor = Math.round(this.widthPlusMargin / (this.menuSelection == 2 ? 11 : 5)); // (5, 5, 11)
         let offsetX = 18;
         let zeroMinus1 = this.menuSelection == 1 ? -1 : 0; // (0-4+, 1-5, 0-10) => start at 0 
