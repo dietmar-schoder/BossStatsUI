@@ -138,8 +138,8 @@ export class SvgText extends SvgElement {
         this.colour = colour;
         this.background = background;
     }
-    getStartTag = () => `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" x="${this.x + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
+    getStartTag = () => `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />
+        <text alignment-baseline="middle" x="${this.x + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
     getEndTag = () => `</text>`;
 }
 export class SvgQuartile extends SvgElement {

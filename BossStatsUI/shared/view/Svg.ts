@@ -179,8 +179,8 @@ export class SvgText extends SvgElement {
     }
 
     public getStartTag = () =>
-        `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" x="${this.x + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
+        `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />
+        <text alignment-baseline="middle" x="${this.x + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.colour}">`;
 
     public getEndTag = () =>
         `</text>`;
@@ -217,10 +217,6 @@ export class SvgQuartile extends SvgElement {
         return `<rect x="${this.x + offsetX + min}" y="${this.y}" width="${w1}" height="${this.height}" fill="${colourMin}" stroke-width="0" />
             <rect x="${this.x + offsetX + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colourQ1}" stroke-width="0" />
             <rect x="${this.x + offsetX + q3}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colourQ3}" stroke-width="0" />
-            <rect x="${this.x + offsetX + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`
-            //+ `<text alignment-baseline=\"middle\" x=\"${this.x}\" y=\"${this.y + this.height / 2 + 1}\">
-            //${this._quartiles.minimum} ${this._quartiles.q1} ${this._quartiles.median} ${this._quartiles.q3} ${this._quartiles.maximum} 
-            //</text>`
-            ;
+            <rect x="${this.x + offsetX + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`;
     }
 }

@@ -36,7 +36,6 @@ export class Manager {
         this._companyId = paramsParts[0];
         this._menuSelection = Number(paramsParts[1]);
         this._selectedLeaderSnapshotIndex = Number(paramsParts[2]);
-        const backParams = `${this._companyId};${this._menuSelection};${this._selectedLeaderSnapshotIndex}`;
         if (this._leaderSnapshots == null) {
             this._leaderSnapshots = await this._server.getLeaderSnapshots(this._companyId);
         }

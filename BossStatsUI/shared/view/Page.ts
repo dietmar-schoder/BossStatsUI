@@ -45,7 +45,6 @@ export class Page {
         const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
         const prevNextButtonWidth = this._configuration.columnWidthAB(0.25);
         const menuDateWidth = this._configuration.columnWidthAB(0.5);
-        const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
         const canMenu1 = menuSelection != 0;
         const canMenu2 = menuSelection != 1;
         const canMenu3 = menuSelection != 2;
@@ -66,23 +65,19 @@ export class Page {
                     new SvgTextCentered(formattedDate, menuDateWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF"),
                     new SvgButton("Next", prevNextButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canNext, Pages.LeaderSnapshotOneToOnes, nextPageParams)
                 ),
-                new SvgElement(true).add(
-                    new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF")
-                )
+                this.quartileScaleSvgElement(menuSelection, this._configuration)
             )
         );
 
         leaderDataEntries.forEach(entry => {
             let indent = entry.level * this._configuration.lineHeight;
             let params = `${menuSelection};${entry.personId}`;
+            let quartiles = menuSelection == 0 ? entry.oneToOneQuartiles : menuSelection == 1 ? entry.performanceQuartiles : entry.engagementQuartiles;
+
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
                 new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, params,
                     indent),
-                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)))
+                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
         });
 
         return this._viewHelper.svgHtml(
@@ -110,7 +105,6 @@ export class Page {
         const menuButtonWidth = this._configuration.columnWidthAB(0.333333);
         const backButtonWidth = this._configuration.columnWidthAB(0.25);
         const nameWidth = this._configuration.columnWidthAB(0.75);
-        const scaleUnitWidth = this._configuration.columnWidthAB(0.2);
         const leaderName = leaderDataEntries[0].name;
         const backParams = `${companyId};${menuSelection};${snapshotSelection}`;
         const menu1Params = `0;${personId}`;
@@ -133,25 +127,38 @@ export class Page {
                     new SvgButton("Back", backButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, backParams),
                     new SvgTextCentered(leaderName, nameWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")
                 ),
-                new SvgElement(true).add(
-                    new SvgText("0", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("1", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("2", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("3", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                    new SvgText("4", scaleUnitWidth, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF")
-                )
+                this.quartileScaleSvgElement(menuSelection, this._configuration)
             )
         );
 
         leaderDataEntries.forEach(entry => {
+            let quartiles = menuSelection == 0 ? entry.oneToOneQuartiles : menuSelection == 1 ? entry.performanceQuartiles : entry.engagementQuartiles;
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
                 new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, entry.oneToOneQuartiles)))
+                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
         });
 
         return this._viewHelper.svgHtml(
             new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(
                 new SvgElement().addList(tableAB))
         );
+    }
+
+    private quartileScaleSvgElement(menuSelection: number, configuration: Configuration): SvgElement {
+        const from = menuSelection == 1 ? 1 : 0; // 0, 1, 0
+        const to = menuSelection == 0 ? 4 : menuSelection == 5 ? 1 : 10; // 4, 5, 10
+        const scaleUnitFactor = menuSelection == 2 ? 0.088 : 0.2; // 5, 5, 11
+        const scaleUnitWidth = configuration.columnWidthAB(scaleUnitFactor);
+        const svgElement = new SvgElement(true);
+
+        for (let i = from; i <= to; i++) {
+            svgElement.add(this.quartileScaleSvgText(i, scaleUnitWidth, configuration));
+        }
+
+        return svgElement;
+    };
+
+    private quartileScaleSvgText(index: number, scaleUnitWidth: number, configuration: Configuration): SvgText {
+        return new SvgText(index.toString(), scaleUnitWidth, configuration.lineHeight, configuration.fontSize, "000000", "FFFFFF");
     }
 }
