@@ -15,13 +15,13 @@ const _companyId = new URLSearchParams(window.location.search).get('id') ?? "";
 var _pageWithParams = `${Pages.Start}|`;
 var _resizeTimeout;
 document.addEventListener("DOMContentLoaded", async function () {
-    console.time('Pages.Start');
+    //console.time('Pages.Start');
     await setWidthAndGetHtml();
-    console.timeEnd('Pages.Start');
-    console.time('Pages.LeaderSnapshotOneToOnes');
+    //console.timeEnd('Pages.Start');
+    //console.time('Pages.LeaderSnapshotOneToOnes');
     _pageWithParams = `${Pages.LeaderSnapshotOneToOnes}|${_companyId};0;0`; // page number | company id ; menu selection ; selected snapshot index
     await getHtml();
-    console.timeEnd('Pages.LeaderSnapshotOneToOnes');
+    //    console.timeEnd('Pages.LeaderSnapshotOneToOnes');
 });
 document.addEventListener("click", async function (event) {
     if (!event || !event.target) {
@@ -42,11 +42,9 @@ window.addEventListener('resize', async function () {
 });
 async function setWidthAndGetHtml() {
     _configuration.setWidth();
-    console.log(_configuration.valuesToString());
+    //console.log(_configuration.valuesToString());
     await getHtml();
 }
 async function getHtml() {
-    //console.time('app.getHtml');
     document.body.innerHTML = await _manager.getHtml(_pageWithParams.split("|"));
-    //    console.timeEnd('app.getHtml');
 }

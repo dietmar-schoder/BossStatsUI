@@ -41,7 +41,7 @@ export class Page {
             let indent = entry.level * this._configuration.lineHeight;
             let params = `${menuSelection};${entry.personId}`;
             let quartiles = menuSelection == 0 ? entry.oneToOneQuartiles : menuSelection == 1 ? entry.performanceQuartiles : entry.engagementQuartiles;
-            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, params, indent), new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)));
+            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, params, indent), new SvgQuartile(menuSelection, this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)));
         });
         return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
         // TEST areas A, B, C
@@ -73,7 +73,7 @@ export class Page {
         tableAB.push(new SvgElement(true).add(new SvgElement(true).add(new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderEvolution, menu1Params), new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderEvolution, menu2Params), new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderEvolution, menu3Params))), new SvgElement(this._configuration.isHorizontalAB).add(new SvgElement(true).add(new SvgButton("Back", backButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", true, Pages.LeaderSnapshotOneToOnes, backParams), new SvgTextCentered(leaderName, nameWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")), this.quartileScaleSvgElement(menuSelection, this._configuration)));
         leaderDataEntries.forEach(entry => {
             let quartiles = menuSelection == 0 ? entry.oneToOneQuartiles : menuSelection == 1 ? entry.performanceQuartiles : entry.engagementQuartiles;
-            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"), new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)));
+            tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"), new SvgQuartile(menuSelection, this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)));
         });
         return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
     }

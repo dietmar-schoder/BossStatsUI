@@ -77,7 +77,7 @@ export class Page {
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
                 new SvgTreeElementButton(entry.name, this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "646464", Pages.LeaderEvolution, params,
                     indent),
-                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
+                new SvgQuartile(menuSelection, this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
         });
 
         return this._viewHelper.svgHtml(
@@ -135,7 +135,7 @@ export class Page {
             let quartiles = menuSelection == 0 ? entry.oneToOneQuartiles : menuSelection == 1 ? entry.performanceQuartiles : entry.engagementQuartiles;
             tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(
                 new SvgText(this._dateHelper.daysToDdMmmYyyy(entry.daysSince2000), this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "000000", "FFFFFF"),
-                new SvgQuartile(this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
+                new SvgQuartile(menuSelection, this._configuration.lineHeight, this._configuration.widthAB + this._configuration.margin, quartiles)))
         });
 
         return this._viewHelper.svgHtml(
