@@ -146,7 +146,7 @@ export class Page {
 
     private quartileScaleSvgElement(menuSelection: number, configuration: Configuration): SvgElement {
         const from = menuSelection == 1 ? 1 : 0; // 0, 1, 0
-        const to = menuSelection == 0 ? 4 : menuSelection == 5 ? 1 : 10; // 4, 5, 10
+        const to = menuSelection == 0 ? 4 : menuSelection == 1 ? 5 : 10; // 4, 5, 10
         const scaleUnitFactor = menuSelection == 2 ? 0.088 : 0.2; // 5, 5, 11
         const scaleUnitWidth = configuration.columnWidthAB(scaleUnitFactor);
         const svgElement = new SvgElement(true);
