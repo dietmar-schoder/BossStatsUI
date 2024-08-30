@@ -47,9 +47,10 @@ export class Manager {
         if (leaderSnapshot.leaderDataEntries == null) {
             leaderSnapshot.leaderDataEntries = (await this._server.getLeaderSnapshotOneToOnes(leaderSnapshot.id)).leaderDataEntries;
         }
-        let prevIndex = this._selectedLeaderSnapshotIndex + (this._selectedLeaderSnapshotIndex < this._leaderSnapshots.length - 1 ? 1 : 0);
+        let canPrev = this._selectedLeaderSnapshotIndex < this._leaderSnapshots.length - 1;
+        let prevIndex = this._selectedLeaderSnapshotIndex + (canPrev ? 1 : 0);
         let nextIndex = this._selectedLeaderSnapshotIndex - (this._selectedLeaderSnapshotIndex > 0 ? 1 : 0);
-        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, this._menuSelection, this._selectedLeaderSnapshotIndex, prevIndex, nextIndex);
+        return this._page.LeaderSnapshotOneToOnes(this._companyId, leaderSnapshot, this._menuSelection, this._selectedLeaderSnapshotIndex, prevIndex, nextIndex, canPrev);
     };
 
     private async getLeaderEvolutionPage(paramsParts: string[]): Promise<string> {

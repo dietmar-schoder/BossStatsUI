@@ -19,7 +19,7 @@ export class Page {
         tableAB.push(new SvgElement(this._configuration.isHorizontalAB).add(new SvgTextCentered("fuehrr.com Reports", this._configuration.widthAB, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF")));
         return this._viewHelper.svgHtml(new SvgPanel(this._configuration.screenWidth, this._configuration.lineHeight, this._configuration.isHorizontalMain).add(new SvgElement().addList(tableAB)));
     }
-    LeaderSnapshotOneToOnes(companyId, leaderSnapshot, menuSelection, selectedIndex, prevIndex, nextIndex) {
+    LeaderSnapshotOneToOnes(companyId, leaderSnapshot, menuSelection, selectedIndex, prevIndex, nextIndex, canPrev) {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
         const leaderDataEntries = leaderSnapshot.leaderDataEntries;
         const menu1Params = `${companyId};0;${selectedIndex}`;
@@ -34,7 +34,6 @@ export class Page {
         const canMenu1 = menuSelection != 0;
         const canMenu2 = menuSelection != 1;
         const canMenu3 = menuSelection != 2;
-        const canPrev = selectedIndex < leaderDataEntries.length - 1;
         const canNext = selectedIndex > 0;
         tableAB.push(new SvgElement(true).add(new SvgElement(true).add(new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderSnapshotOneToOnes, menu1Params), new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderSnapshotOneToOnes, menu2Params), new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderSnapshotOneToOnes, menu3Params))), new SvgElement(this._configuration.isHorizontalAB).add(new SvgElement(true).add(new SvgButton("Prev", prevNextButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canPrev, Pages.LeaderSnapshotOneToOnes, prevPageParams), new SvgTextCentered(formattedDate, menuDateWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", "FFFFFF"), new SvgButton("Next", prevNextButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canNext, Pages.LeaderSnapshotOneToOnes, nextPageParams)), this.quartileScaleSvgElement(menuSelection, this._configuration)));
         leaderDataEntries.forEach(entry => {

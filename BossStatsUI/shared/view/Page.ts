@@ -33,7 +33,7 @@ export class Page {
         );
     }
 
-    public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, menuSelection: number, selectedIndex: number, prevIndex: number, nextIndex: number): string {
+    public LeaderSnapshotOneToOnes(companyId: string, leaderSnapshot: LeaderSnapshot, menuSelection: number, selectedIndex: number, prevIndex: number, nextIndex: number, canPrev: boolean): string {
         const formattedDate = this._dateHelper.daysToDdMmmYyyy(leaderSnapshot.daysSince2000);
         const leaderDataEntries = leaderSnapshot.leaderDataEntries;
         const menu1Params = `${companyId};0;${selectedIndex}`;
@@ -48,7 +48,6 @@ export class Page {
         const canMenu1 = menuSelection != 0;
         const canMenu2 = menuSelection != 1;
         const canMenu3 = menuSelection != 2;
-        const canPrev = selectedIndex < leaderDataEntries.length - 1;
         const canNext = selectedIndex > 0;
 
         tableAB.push(

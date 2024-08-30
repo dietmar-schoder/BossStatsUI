@@ -210,20 +210,40 @@ export class SvgQuartile extends SvgElement {
         let q3 = (this.quartiles.q3 + zeroMinus1) * factor;
         let max = (this.quartiles.maximum + zeroMinus1) * factor;
 
-        let w1 = q1 - min > 1 ? q1 - min - 1 : 2;
-        let w2 = q3 - q1 > 1 ? q3 - q1 - 1 : 2;
-        let w3 = max - q3 > 1 ? max - q3 : 0;
+        let w1 = q1 - min;
+        let w2 = med - q1;
+        let w3 = q3 - med;
+        let w4 = max - q3;
+        let yH2 = this.y + this.height / 2 - 1;
 
         let mediumLimit = this.menuSelection == 0 ? 1.33 : this.menuSelection == 1 ? 2.33 : 3.33; // 1.33, 2.33, 3.33
         let goodLimit = this.menuSelection == 0 ? 2.66 : this.menuSelection == 1 ? 3.66 : 6.66; // 2.66, 3.66, 6.66
-        let colourMin = this.quartiles.minimum > goodLimit ? qGood : this.quartiles.minimum > mediumLimit ? qMedium : qBad;
-        let colourQ1 = this.quartiles.q1 > goodLimit ? qGood : this.quartiles.q1 > mediumLimit ? qMedium : qBad;
-        let colourQ3 = this.quartiles.q3 > goodLimit ? qGood : this.quartiles.q3 > mediumLimit ? qMedium : qBad;
-        let colourMed = this.quartiles.median > goodLimit ? q2Good : this.quartiles.median > mediumLimit ? q2Medium : q2Bad;
+        let colour1 = this.quartiles.minimum > goodLimit ? qGood : this.quartiles.minimum > mediumLimit ? qMedium : qBad;
+        let colour2 = this.quartiles.q1 > goodLimit ? qGood : this.quartiles.q1 > mediumLimit ? qMedium : qBad;
+        let colourM = this.quartiles.median > goodLimit ? q2Good : this.quartiles.median > mediumLimit ? q2Medium : q2Bad;
+        let colour3 = this.quartiles.q3 > goodLimit ? qGood : this.quartiles.q3 > mediumLimit ? qMedium : qBad;
+        let colour4 = this.quartiles.maximum > goodLimit ? qGood : this.quartiles.maximum > mediumLimit ? qMedium : qBad;
 
-        return `<rect x="${this.x + offsetX + min}" y="${this.y}" width="${w1}" height="${this.height}" fill="${colourMin}" stroke-width="0" />
-            <rect x="${this.x + offsetX + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colourQ1}" stroke-width="0" />
-            <rect x="${this.x + offsetX + q3}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colourQ3}" stroke-width="0" />
-            <rect x="${this.x + offsetX + med}" y="${this.y - 2}" width="${2}" height="${this.height + 4}" fill="${colourMed}" stroke-width="0" />`;
+        let svg1 = w1 > 0
+            ? `<rect x="${this.x + offsetX + min - 1}" y="${this.y + 6}" width="2" height="${this.height - 12}" fill="${colour1}" stroke-width="0" />
+                <rect x="${this.x + offsetX + min}" y="${yH2}" width="${w1}" height="2" fill="${colour1}" stroke-width="0" />`
+            : ``;
+
+        let svg2 = w2 > 0
+            ? `<rect x="${this.x + offsetX + q1}" y="${this.y}" width="${w2}" height="${this.height}" fill="${colour2}" stroke-width="0" />`
+            : ``;
+
+        let svg3 = w3 > 0
+            ? `<rect x="${this.x + offsetX + med}" y="${this.y}" width="${w3}" height="${this.height}" fill="${colour3}" stroke-width="0" />`
+            : ``;
+
+        let svg4 = w4 > 0
+            ? `<rect x="${this.x + offsetX + q3}" y="${yH2}" width="${w4}" height="2" fill="${colour4}" stroke-width="0" />
+                <rect x="${this.x + offsetX + max - 1}" y="${this.y + 6}" width="2" height="${this.height - 12}" fill="${colour4}" stroke-width="0" />`
+            : ``;
+
+        let svgMed = `<rect x="${this.x + offsetX + med - 2}" y="${this.y - 2}" width="4" height="${this.height + 4}" fill="${colourM}" stroke-width="0" />`;
+
+        return svg1 + svg2 + svg3 + svg4 + svgMed;
     }
 }
