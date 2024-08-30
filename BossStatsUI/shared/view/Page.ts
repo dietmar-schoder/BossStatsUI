@@ -53,9 +53,9 @@ export class Page {
         tableAB.push(
             new SvgElement(true).add(
                 new SvgElement(true).add(
-                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderSnapshotOneToOnes, menu1Params),
-                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderSnapshotOneToOnes, menu2Params),
-                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderSnapshotOneToOnes, menu3Params)
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu1, Pages.LeaderSnapshotOneToOnes, menu1Params),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu2, Pages.LeaderSnapshotOneToOnes, menu2Params),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu3, Pages.LeaderSnapshotOneToOnes, menu3Params)
                 )
             ),
             new SvgElement(this._configuration.isHorizontalAB).add(
@@ -116,9 +116,9 @@ export class Page {
         tableAB.push(
             new SvgElement(true).add(
                 new SvgElement(true).add(
-                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu1, Pages.LeaderEvolution, menu1Params),
-                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu2, Pages.LeaderEvolution, menu2Params),
-                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize, "784ABA", canMenu3, Pages.LeaderEvolution, menu3Params)
+                    new SvgButton("1:1s", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu1, Pages.LeaderEvolution, menu1Params),
+                    new SvgButton("Performance", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu2, Pages.LeaderEvolution, menu2Params),
+                    new SvgButton("Engagement", menuButtonWidth, this._configuration.lineHeight, this._configuration.fontSize - 4, "784ABA", canMenu3, Pages.LeaderEvolution, menu3Params)
                 )
             ),
             new SvgElement(this._configuration.isHorizontalAB).add(
