@@ -78,6 +78,7 @@ export class SvgButton extends SvgElement {
     isEnabled;
     action;
     params;
+    class;
     constructor(caption, width, height, fontSize, background, isEnabled, action, params) {
         super();
         this.content = caption;
@@ -89,11 +90,14 @@ export class SvgButton extends SvgElement {
         this.isEnabled = isEnabled;
         this.action = action;
         this.params = params;
+        this.class = isEnabled ? `class="purplebuttonrect" ` : ``;
     }
-    getStartTag = () => `<rect x="${this.x}" y="${this.y}" rx="4" ry="4" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.fontColour}">`;
+    getStartTag = () => `<g class="purplebutton">
+        <rect x="${this.x}" y="${this.y}" rx="4" ry="4" width="${this.width}" height="${this.height}" fill="#${this.background}" stroke-width="0" ${this.class}/>
+        <text alignment-baseline="middle" text-anchor="middle" x="${this.x + this.width / 2}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="#${this.fontColour}">`;
     getEndTag = () => `</text>` +
-        (this.isEnabled ? `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />` : ``);
+        (this.isEnabled ? `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />` : ``) +
+        `</g>`;
 }
 export class SvgTreeElementButton extends SvgButton {
     indent;
@@ -101,10 +105,12 @@ export class SvgTreeElementButton extends SvgButton {
         super(caption, width, height, fontSize, background, true, action, params);
         this.indent = indent;
     }
-    getStartTag = () => `<rect x="${this.x + this.indent}" y="${this.y}" rx="4" ry="4" width="${this.width - this.indent}" height="${this.height}" fill="#${this.background}" stroke-width="0" />` +
-        `<text alignment-baseline="middle" x="${this.x + this.indent + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="white">`;
-    getEndTag = () => `</text>` +
-        `<rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />`;
+    getStartTag = () => `<g class="greybutton">
+        <rect x="${this.x + this.indent}" y="${this.y}" rx="4" ry="4" width="${this.width - this.indent}" height="${this.height}" fill="#${this.background}" stroke-width="0" class="greybuttonrect" />
+        <text alignment-baseline="middle" x="${this.x + this.indent + 12}" y="${this.y + this.height / 2 + 1}" font-size="${this.fontSize}" fill="white">`;
+    getEndTag = () => `</text>
+        <rect id="${this.action}|${this.params}" style= "cursor:pointer" x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="transparent" stroke-width="0" />
+        </g>`;
 }
 export class SvgTextCentered extends SvgElement {
     fontSize;
